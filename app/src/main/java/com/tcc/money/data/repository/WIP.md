@@ -1,0 +1,1 @@
+Classes que acessam API, BD, etc.
