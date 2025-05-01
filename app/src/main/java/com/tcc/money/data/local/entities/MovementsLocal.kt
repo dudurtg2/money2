@@ -1,12 +1,12 @@
-package com.tcc.money.data.models
+package com.tcc.money.data.local.entities
 
 import com.tcc.money.utils.enums.TypeCoins
 import java.time.LocalDateTime
 
-data class Movements(
+data class MovementsLocal(
     val date: LocalDateTime,
     val value: Float,
     val price: Float,
-    val coins: Coins,
+    val coins: CoinsLocal,
     val typeCoins: TypeCoins
 )

@@ -1,4 +1,4 @@
-package com.tcc.money.data.models
+package com.tcc.money.data.api.models
 
 
 data class Users(
