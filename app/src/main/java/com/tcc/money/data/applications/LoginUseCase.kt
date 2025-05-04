@@ -1,7 +1,7 @@
 package com.tcc.money.data.applications
 
-import com.tcc.money.data.api.models.Users
-import com.tcc.money.data.api.repositories.UsersRepository
+import com.tcc.money.data.models.Users
+import com.tcc.money.data.repositories.UsersRepository
 
 class LoginUseCase {
 

@@ -1,9 +1,9 @@
 package com.tcc.money.data.Intefaces
 
-import com.tcc.money.data.api.models.Movements
+import com.tcc.money.data.models.Movements
 
 interface IMovementsRepository {
-    fun save(movements: Movements): Movements
-    fun findById(id: Int): Movements
-    fun findAll(): List<Movements>
+    suspend fun save(movements: Movements): Movements
+    suspend fun findById(id: Long): Movements
+    suspend fun findAll(): List<Movements>
 }

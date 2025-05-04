@@ -1,9 +1,9 @@
 package com.tcc.money.data.Intefaces
 
-import com.tcc.money.data.api.models.Coins
+import com.tcc.money.data.models.Coins
 
 interface ICoinsRepository {
-    fun save(coins: Coins): Coins
-    fun findByid(id: Int): Coins
-    fun findAll(): List<Coins>
+    suspend fun save(coins: Coins): Coins
+    suspend fun findById(id: Long): Coins
+    suspend fun findAll(): List<Coins>
 }
