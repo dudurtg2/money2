@@ -7,7 +7,7 @@ class LoginUseCase {
 
     private val usersRepository = UsersRepository()
 
-    fun execute(user: Users): Users {
+   suspend fun execute(user: Users): Users {
 
         return usersRepository.login(user)
     }

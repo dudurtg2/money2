@@ -24,7 +24,7 @@ class SynchronizationUseCase(context: Context) {
     private val coinsRepository = CoinsRepository()
     private val movementsRepository = MovementsRepository()
 
-    fun execute(): Boolean {
+    suspend fun execute(): Boolean {
         if (!checkPremiumAccountUseCase) return false
         try {
             val coins: List<Coins> = coinsMapper.toCoinsList(coinsDao.findByNotSync())
@@ -38,13 +38,13 @@ class SynchronizationUseCase(context: Context) {
         }
     }
 
-    fun syncCoinsToApi(coins: List<Coins>) {
+    suspend fun syncCoinsToApi(coins: List<Coins>) {
         for (coin in coins) {
             coinsRepository.save(coin)
         }
     }
 
-    fun syncMovementsToApi(movements: List<Movements>) {
+    suspend fun syncMovementsToApi(movements: List<Movements>) {
         for (movement in movements) {
             movementsRepository.save(movement)
         }

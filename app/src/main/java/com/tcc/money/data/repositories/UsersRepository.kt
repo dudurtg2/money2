@@ -2,19 +2,26 @@ package com.tcc.money.data.repositories
 
 import com.tcc.money.data.Intefaces.IUsersRepository
 import com.tcc.money.data.models.Users
+import com.tcc.money.network.retrofit.UsersRetrofit
 
 
 class UsersRepository: IUsersRepository {
-    override fun save(users: Users): Users {
-        TODO("Not yet implemented")
+    private val api = UsersRetrofit.instance
+
+    suspend override fun save(users: Users): Users {
+       return api.save(users)
     }
 
-    override fun login(users: Users): Users {
-        TODO("Not yet implemented")
+    suspend  override fun login(users: Users): Users {
+        return api.login(users)
     }
 
-    override fun findById(id: Long): Users {
-        TODO("Not yet implemented")
+    suspend  override fun findById(id: Long): Users {
+        return api.findById(id)
+    }
+
+    suspend  override fun update(users: Users): Users {
+        return api.update(users)
     }
 
 
