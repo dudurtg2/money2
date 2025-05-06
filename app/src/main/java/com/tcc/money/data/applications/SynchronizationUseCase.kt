@@ -5,7 +5,6 @@ import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.data.repositories.MovementsRepository
-import com.tcc.money.data.repositories.UsersRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.database.exception.SyncErrorException
 import com.tcc.money.utils.mapper.CoinsMapper
@@ -40,13 +39,23 @@ class SynchronizationUseCase(context: Context) {
 
     suspend fun syncCoinsToApi(coins: List<Coins>) {
         for (coin in coins) {
-            coinsRepository.save(coin)
+            if (coinsRepository.save(coin) != null){
+                val coinsEntity = coinsMapper.toCoinsEntity(coin)
+                coinsEntity.sync = true
+                coinsDao.update(coinsEntity)
+            }
+
         }
     }
 
     suspend fun syncMovementsToApi(movements: List<Movements>) {
         for (movement in movements) {
-            movementsRepository.save(movement)
+            if (movementsRepository.save(movement) != null){
+                val movementsEntity = movementsMapper.toMovementsEntity(movement)
+                movementsEntity.sync = true
+                movementsDao.update(movementsEntity)
+
+            }
         }
     }
 }

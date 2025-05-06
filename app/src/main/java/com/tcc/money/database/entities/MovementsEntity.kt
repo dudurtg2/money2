@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 data class MovementsEntity(
     @PrimaryKey
     val id: Long,
-    val sync: Boolean,
+    var sync: Boolean,
 
     val date: LocalDateTime,
     val value: Float,

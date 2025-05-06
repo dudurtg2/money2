@@ -17,7 +17,9 @@ class SaveCoinsUseCase(context: Context) {
         return if (hasPremiumAccountUseCase) {
             coinsRepository.save(coins)
         } else {
-            coinsMapper.toCoins(coinsDao.save(coinsMapper.toCoinsEntity(coins)))
+            val coinsEntity = coinsMapper.toCoinsEntity(coins)
+            coinsEntity.sync = false
+            coinsMapper.toCoins(coinsDao.save(coinsEntity))
         }
     }
 }

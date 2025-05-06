@@ -16,11 +16,11 @@ class SaveMovementsUseCase(context: Context) {
         if (hasPremiumAccountUseCase) {
             return movementsRepository.save(movements)
         } else {
+            val movementsEntity = movementsMapper.toMovementsEntity(movements)
+            movementsEntity.sync = false
             return movementsMapper.toMovements(
                 movementsDao.save(
-                    movementsMapper.toMovementsEntity(
-                        movements
-                    )
+                    movementsEntity
                 )
             )
         }
