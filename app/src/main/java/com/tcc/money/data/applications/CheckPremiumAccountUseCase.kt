@@ -7,13 +7,12 @@ import com.tcc.money.utils.enums.TypeAccount
 
 class CheckPremiumAccountUseCase(context: Context) {
     private val usersDao = DataBase.getDatabase(context).usersDao()
-    private val usersRepository = UsersRepository()
+    private val usersRepository = UsersRepository(context)
 
     fun execute(): Boolean {
-        if (usersRepository.findById(usersDao.findById(1).id).type.equals(TypeAccount.PREMIUM)) {
-            return true
-        } else {
+
+
             return false
-        }
+        
     }
 }

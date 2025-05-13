@@ -4,18 +4,20 @@ import com.tcc.money.data.Intefaces.ICoinsRepository
 import com.tcc.money.data.Intefaces.IMovementsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface MovementsApi: IMovementsRepository {
+interface MovementsApi {
     @GET("api/movements/findAll")
-    override suspend fun findAll(): List<Movements>
+     suspend fun findAll(): Response<ResponseBody>
 
     @GET("api/movements/find/{id}")
-    override suspend fun findById(@Path("id") id: Long): Movements
+     suspend fun findById(@Path("id") id: Long): Response<ResponseBody>
 
     @POST("api/movements/save")
-    override suspend fun save(@Body movements: Movements): Movements
+     suspend fun save(@Body movements: Movements): Response<ResponseBody>
 }

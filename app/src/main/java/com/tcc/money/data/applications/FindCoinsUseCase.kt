@@ -8,7 +8,7 @@ import com.tcc.money.utils.mapper.CoinsMapper
 import org.mapstruct.factory.Mappers
 
 class FindCoinsUseCase(context: Context) {
-    private val coinsRepository = CoinsRepository()
+    private val coinsRepository = CoinsRepository(context)
     private val coinsDao = DataBase.getDatabase(context).coinsDao()
     private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
     private val coinsMapper = Mappers.getMapper(CoinsMapper::class.java)

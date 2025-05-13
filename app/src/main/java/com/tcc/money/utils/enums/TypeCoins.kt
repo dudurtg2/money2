@@ -8,7 +8,6 @@ enum class TypeCoins(val value: Int) {
     PHYSICAL(4),
     OTHER(5);
 
-    fun getValue(): Int {
-        return value
-    }
+    @JvmName("toIntValue")
+    fun getValue(): Int = value
 }

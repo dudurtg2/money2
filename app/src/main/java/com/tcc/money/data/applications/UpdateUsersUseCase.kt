@@ -6,7 +6,7 @@ import com.tcc.money.data.repositories.UsersRepository
 import com.tcc.money.database.DataBase
 
 class UpdateUsersUseCase(context: Context) {
-    private val usersRepository = UsersRepository()
+    private val usersRepository = UsersRepository(context)
     private val usersDao = DataBase.getDatabase(context).usersDao()
 
 

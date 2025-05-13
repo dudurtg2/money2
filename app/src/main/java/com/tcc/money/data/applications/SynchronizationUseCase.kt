@@ -20,8 +20,8 @@ class SynchronizationUseCase(context: Context) {
 
     private val coinsDao = db.coinsDao()
     private val movementsDao = db.movementsDao()
-    private val coinsRepository = CoinsRepository()
-    private val movementsRepository = MovementsRepository()
+    private val coinsRepository = CoinsRepository(context)
+    private val movementsRepository = MovementsRepository(context)
 
     suspend fun execute(): Boolean {
         if (!checkPremiumAccountUseCase) return false

@@ -5,22 +5,24 @@ import com.tcc.money.data.Intefaces.IUsersRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.models.Users
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-interface UsersApi: IUsersRepository {
+interface UsersApi{
     @GET("api/users/find/{id}")
-    override suspend fun findById(@Path("id") id: Long): Users
+    suspend fun findById(@Path("id") id: Long): Response<ResponseBody>
 
     @POST("api/users/save")
-    override suspend fun save(@Body users: Users): Users
+    suspend fun save(@Body users: Users): Response<ResponseBody>
 
     @POST("api/users/login")
-    override suspend fun login(users: Users): Users
+    suspend fun login(users: Users): Response<ResponseBody>
 
     @PUT("api/users/update")
-    override suspend fun update(@Body users: Users): Users
+    suspend fun update(@Body users: Users): Response<ResponseBody>
 }

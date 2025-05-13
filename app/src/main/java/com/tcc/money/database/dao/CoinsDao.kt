@@ -11,7 +11,7 @@ import com.tcc.money.database.entities.CoinsEntity
 @Dao
 interface CoinsDao {
     @Insert
-    fun save(coinsEntity: CoinsEntity): CoinsEntity
+    fun save(coinsEntity: CoinsEntity): Long
 
     @Query("SELECT * FROM coins WHERE id = :id")
     fun findByid(id: Long): CoinsEntity
@@ -23,5 +23,5 @@ interface CoinsDao {
     fun findByNotSync(): List<CoinsEntity>
 
     @Update
-    fun update(coinsEntity: CoinsEntity): CoinsEntity
+    fun update(coinsEntity: CoinsEntity): Int
 }

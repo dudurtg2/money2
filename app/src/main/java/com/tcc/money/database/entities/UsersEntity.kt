@@ -8,13 +8,12 @@ import java.time.LocalDateTime
 @Entity(tableName = "users")
 data class UsersEntity(
     @PrimaryKey
-    val id: Long,
+    val email: String,
     val sync: Boolean,
 
     val dataNascimento: LocalDateTime,
     val genero: String,
     val nome: String,
-    val email: String,
     val cpf: String,
     val telefone: String,
     val type: TypeAccount

@@ -8,7 +8,7 @@ import com.tcc.money.utils.mapper.MovementsMapper
 import org.mapstruct.factory.Mappers
 
 class SaveMovementsUseCase(context: Context) {
-    private val movementsRepository = MovementsRepository()
+    private val movementsRepository = MovementsRepository(context)
     private val movementsDao = DataBase.getDatabase(context).movementsDao()
     private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
     private val movementsMapper = Mappers.getMapper(MovementsMapper::class.java)
@@ -18,10 +18,10 @@ class SaveMovementsUseCase(context: Context) {
         } else {
             val movementsEntity = movementsMapper.toMovementsEntity(movements)
             movementsEntity.sync = false
-            return movementsMapper.toMovements(
+            return movementsMapper.toMovements( movementsDao.findById(
                 movementsDao.save(
                     movementsEntity
-                )
+                ))
             )
         }
     }

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.tcc.money.database.converters.Converters
 import com.tcc.money.database.dao.CoinsDao
 import com.tcc.money.database.dao.MovementsDao
 import com.tcc.money.database.dao.UsersDao
@@ -12,6 +14,7 @@ import com.tcc.money.database.entities.MovementsEntity
 import com.tcc.money.database.entities.UsersEntity
 
 @Database(entities = [CoinsEntity::class, MovementsEntity::class, UsersEntity::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class DataBase : RoomDatabase() {
     abstract fun coinsDao(): CoinsDao
     abstract fun movementsDao(): MovementsDao

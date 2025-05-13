@@ -11,7 +11,7 @@ import com.tcc.money.database.entities.MovementsEntity
 @Dao
 interface MovementsDao {
     @Insert
-    fun save(movementsEntity: MovementsEntity): MovementsEntity
+    fun save(movementsEntity: MovementsEntity): Long
 
     @Query("SELECT * FROM movements WHERE id = :id")
     fun findById(id: Long): MovementsEntity
@@ -23,6 +23,6 @@ interface MovementsDao {
     fun findByNotSync(): List<MovementsEntity>
 
     @Update
-    fun update(movementsEntity: MovementsEntity): MovementsEntity
+    fun update(movementsEntity: MovementsEntity): Int
 
 }

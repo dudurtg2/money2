@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.tcc.money"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tcc.money"
@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("androidx.security:security-crypto:1.1.0-alpha06")
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.mapstruct)

@@ -1,22 +1,76 @@
 package com.tcc.money.data.repositories
 
+import android.content.Context
 import com.tcc.money.data.Intefaces.ICoinsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.network.retrofit.CoinsRetrofit
+import org.json.JSONArray
+import org.json.JSONObject
 
-class CoinsRepository: ICoinsRepository {
 
-    private val api = CoinsRetrofit.instance
+class CoinsRepository(context: Context): ICoinsRepository {
+
+    private val api = CoinsRetrofit.create(context)
 
     override suspend fun save(coins: Coins): Coins {
-        return api.save(coins)
+        val response = api.save(coins)
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            val jsonObject = JSONObject(json)
+
+            return Coins(
+                name =  jsonObject.getString("name"),
+                symbol = jsonObject.getString("symbol"),
+                image = jsonObject.getString("image")
+            )
+        } else {
+            throw Exception("Erro no login: ${response.code()}")
+        }
+
     }
 
     override suspend fun findById(id: Long): Coins {
-        return api.findById(id)
+        val response = api.findById(id)
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            val jsonObject = JSONObject(json)
+
+            return Coins(
+                name =  jsonObject.getString("name"),
+                symbol = jsonObject.getString("symbol"),
+                image = jsonObject.getString("image")
+            )
+        } else {
+            throw Exception("Erro no login: ${response.code()}")
+        }
+
     }
 
     override suspend fun findAll(): List<Coins> {
-        return api.findAll()
+        val response = api.findAll()
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            val jsonArray = JSONArray(json)
+
+            val coinsList = mutableListOf<Coins>()
+
+
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+
+                val coin = Coins(
+                    name = jsonObject.getString("name"),
+                    symbol = jsonObject.getString("symbol"),
+                    image = jsonObject.getString("image")
+                )
+
+                coinsList.add(coin)
+            }
+
+            return coinsList
+        } else {
+            throw Exception("Erro na requisição: ${response.code()}")
+        }
+
     }
 }

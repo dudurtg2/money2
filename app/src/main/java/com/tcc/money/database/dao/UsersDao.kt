@@ -10,10 +10,9 @@ import com.tcc.money.database.entities.UsersEntity
 @Dao
 interface UsersDao {
     @Insert
-    fun save(users: UsersEntity): UsersEntity
+    fun save(users: UsersEntity): Long
 
-    @Query("SELECT * FROM users WHERE id = :id")
-    fun findById(id: Long): UsersEntity
+
 
     @Query("SELECT * FROM users WHERE sync = 0")
     fun findByNotSync(): List<UsersEntity>
