@@ -10,6 +10,7 @@ import com.tcc.money.utils.enums.TypeCoins
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDateTime
+import java.util.UUID
 
 class MovementsRepository(context: Context) : IMovementsRepository {
     private val api = MovementsRetrofit.create(context)
@@ -27,17 +28,19 @@ class MovementsRepository(context: Context) : IMovementsRepository {
                 coins = Coins(
                     name = coinsObject.getString("name"),
                     symbol = coinsObject.getString("symbol"),
-                    image = coinsObject.getString("image")
+                    image = coinsObject.getString("image"),
+                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
                 ),
-                typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins"))
+                typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins")),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")
         }
     }
 
-    override suspend fun findById(id: Long): Movements {
-        val response = api.findById(id)
+    override suspend fun findByUUID(uuid: UUID): Movements {
+        val response = api.findByUUID(uuid)
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -49,9 +52,11 @@ class MovementsRepository(context: Context) : IMovementsRepository {
                 coins = Coins(
                     name = coinsObject.getString("name"),
                     symbol = coinsObject.getString("symbol"),
-                    image = coinsObject.getString("image")
+                    image = coinsObject.getString("image"),
+                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
                 ),
-                typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins"))
+                typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins")),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")
@@ -77,9 +82,11 @@ class MovementsRepository(context: Context) : IMovementsRepository {
                     coins = Coins(
                         name = coinsObject.getString("name"),
                         symbol = coinsObject.getString("symbol"),
-                        image = coinsObject.getString("image")
+                        image = coinsObject.getString("image"),
+                        uuid =  UUID.fromString(jsonObject.getString("uuid"))
                     ),
-                    typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins"))
+                    typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins")),
+                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
                 )
 
                 movementsList.add(movement)

@@ -2,19 +2,21 @@ package com.tcc.money.data.repositories
 
 import android.content.Context
 import com.tcc.money.data.Intefaces.IUsersRepository
+import com.tcc.money.data.dto.Login
 import com.tcc.money.data.models.Users
 import com.tcc.money.data.services.AuthenticateService
 import com.tcc.money.network.retrofit.UsersRetrofit
 import com.tcc.money.utils.enums.TypeAccount
 import org.json.JSONObject
 import java.time.LocalDateTime
+import java.util.UUID
 
 
 class UsersRepository(context: Context): IUsersRepository {
     private val api = UsersRetrofit.create(context)
     private val contexts = context
-    override suspend fun login(users: Users): Users {
-        val response = api.login(users)
+    override suspend fun login(login: Login): Users {
+        val response = api.login(login)
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -27,7 +29,8 @@ class UsersRepository(context: Context): IUsersRepository {
                 email = jsonObject.getString("email"),
                 cpf = jsonObject.getString("cpf"),
                 telefone = jsonObject.getString("telefone"),
-                type = TypeAccount.valueOf(jsonObject.getString("type"))
+                type = TypeAccount.valueOf(jsonObject.getString("type")),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")
@@ -46,7 +49,8 @@ class UsersRepository(context: Context): IUsersRepository {
                 email = jsonObject.getString("email"),
                 cpf = jsonObject.getString("cpf"),
                 telefone = jsonObject.getString("telefone"),
-                type = TypeAccount.valueOf(jsonObject.getString("type"))
+                type = TypeAccount.valueOf(jsonObject.getString("type")),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")

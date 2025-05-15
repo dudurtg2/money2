@@ -8,13 +8,14 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.util.UUID
 
 interface CoinsApi {
     @GET("api/coins/findAll")
      suspend fun findAll(): Response<ResponseBody>
 
-    @GET("api/coins/find/{id}")
-     suspend fun findById(@Path("id") id: Long): Response<ResponseBody>
+    @GET("api/coins/find/{uuid}")
+     suspend fun findByUUID(@Path("uuid") uuid: UUID): Response<ResponseBody>
 
     @POST("api/coins/save")
      suspend fun save(@Body coins: Coins): Response<ResponseBody>

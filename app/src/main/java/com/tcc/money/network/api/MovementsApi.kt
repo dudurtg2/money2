@@ -10,13 +10,14 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.util.UUID
 
 interface MovementsApi {
     @GET("api/movements/findAll")
      suspend fun findAll(): Response<ResponseBody>
 
-    @GET("api/movements/find/{id}")
-     suspend fun findById(@Path("id") id: Long): Response<ResponseBody>
+    @GET("api/movements/find/{uuid}")
+     suspend fun findByUUID(@Path("uuid") uuid: UUID,): Response<ResponseBody>
 
     @POST("api/movements/save")
      suspend fun save(@Body movements: Movements): Response<ResponseBody>

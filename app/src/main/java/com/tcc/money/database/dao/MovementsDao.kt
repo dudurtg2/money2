@@ -7,14 +7,15 @@ import androidx.room.Update
 import com.tcc.money.data.Intefaces.IMovementsRepository
 import com.tcc.money.data.models.Movements
 import com.tcc.money.database.entities.MovementsEntity
+import java.util.UUID
 
 @Dao
 interface MovementsDao {
     @Insert
     fun save(movementsEntity: MovementsEntity): Long
 
-    @Query("SELECT * FROM movements WHERE id = :id")
-    fun findById(id: Long): MovementsEntity
+    @Query("SELECT * FROM movements WHERE uuid = :uuid")
+    fun findByUUID(uuid: UUID): MovementsEntity
 
     @Query("SELECT * FROM movements")
     fun findAll(): List<MovementsEntity>

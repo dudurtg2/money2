@@ -19,7 +19,8 @@ class SaveCoinsUseCase(context: Context) {
         } else {
             val coinsEntity = coinsMapper.toCoinsEntity(coins)
             coinsEntity.sync = false
-            coinsRepository.findById(coinsDao.save(coinsEntity))
+            coinsDao.save(coinsEntity)
+            coinsRepository.findByUUID(coinsEntity.uuid)
         }
     }
 }

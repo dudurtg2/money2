@@ -6,6 +6,7 @@ import com.tcc.money.data.repositories.MovementsRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.MovementsMapper
 import org.mapstruct.factory.Mappers
+import java.util.UUID
 
 class FindMovementsUseCase(context: Context) {
     private val movementsRepository = MovementsRepository(context)
@@ -20,11 +21,11 @@ class FindMovementsUseCase(context: Context) {
         }
     }
 
-    suspend fun execute(id: Long): Movements {
+    suspend fun execute(uuid: UUID): Movements {
         return if (hasPremiumAccountUseCase) {
-            movementsRepository.findById(id)
+            movementsRepository.findByUUID(uuid)
         } else {
-            movementsMapper.toMovements(movementsDao.findById(id))
+            movementsMapper.toMovements(movementsDao.findByUUID(uuid))
         }
     }
 }

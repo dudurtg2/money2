@@ -18,10 +18,11 @@ class SaveMovementsUseCase(context: Context) {
         } else {
             val movementsEntity = movementsMapper.toMovementsEntity(movements)
             movementsEntity.sync = false
-            return movementsMapper.toMovements( movementsDao.findById(
-                movementsDao.save(
-                    movementsEntity
-                ))
+            movementsDao.save(
+                movementsEntity
+            )
+            return movementsMapper.toMovements( movementsDao.findByUUID(movementsEntity.uuid
+                )
             )
         }
     }

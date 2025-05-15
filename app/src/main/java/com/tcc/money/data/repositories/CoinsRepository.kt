@@ -6,6 +6,7 @@ import com.tcc.money.data.models.Coins
 import com.tcc.money.network.retrofit.CoinsRetrofit
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.UUID
 
 
 class CoinsRepository(context: Context): ICoinsRepository {
@@ -21,7 +22,8 @@ class CoinsRepository(context: Context): ICoinsRepository {
             return Coins(
                 name =  jsonObject.getString("name"),
                 symbol = jsonObject.getString("symbol"),
-                image = jsonObject.getString("image")
+                image = jsonObject.getString("image"),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")
@@ -29,8 +31,8 @@ class CoinsRepository(context: Context): ICoinsRepository {
 
     }
 
-    override suspend fun findById(id: Long): Coins {
-        val response = api.findById(id)
+    override suspend fun findByUUID(uuid: UUID): Coins {
+        val response = api.findByUUID(uuid)
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -38,7 +40,8 @@ class CoinsRepository(context: Context): ICoinsRepository {
             return Coins(
                 name =  jsonObject.getString("name"),
                 symbol = jsonObject.getString("symbol"),
-                image = jsonObject.getString("image")
+                image = jsonObject.getString("image"),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
             throw Exception("Erro no login: ${response.code()}")
@@ -61,7 +64,8 @@ class CoinsRepository(context: Context): ICoinsRepository {
                 val coin = Coins(
                     name = jsonObject.getString("name"),
                     symbol = jsonObject.getString("symbol"),
-                    image = jsonObject.getString("image")
+                    image = jsonObject.getString("image"),
+                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
                 )
 
                 coinsList.add(coin)

@@ -6,6 +6,7 @@ import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.CoinsMapper
 import org.mapstruct.factory.Mappers
+import java.util.UUID
 
 class FindCoinsUseCase(context: Context) {
     private val coinsRepository = CoinsRepository(context)
@@ -21,11 +22,11 @@ class FindCoinsUseCase(context: Context) {
         }
     }
 
-    suspend  fun execute(index: Long): Coins {
+    suspend  fun execute(index: UUID): Coins {
         if (hasPremiumAccountUseCase) {
-            return coinsRepository.findById(index)
+            return coinsRepository.findByUUID(index)
         } else {
-            return coinsMapper.toCoins(coinsDao.findByid(index))
+            return coinsMapper.toCoins(coinsDao.findByUUID(index))
         }
     }
 }

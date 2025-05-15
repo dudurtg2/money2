@@ -7,14 +7,15 @@ import androidx.room.Update
 import com.tcc.money.data.Intefaces.ICoinsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.database.entities.CoinsEntity
+import java.util.UUID
 
 @Dao
 interface CoinsDao {
     @Insert
     fun save(coinsEntity: CoinsEntity): Long
 
-    @Query("SELECT * FROM coins WHERE id = :id")
-    fun findByid(id: Long): CoinsEntity
+    @Query("SELECT * FROM coins WHERE uuid = :uuid")
+    fun findByUUID(uuid: UUID): CoinsEntity
 
     @Query("SELECT * FROM coins")
     fun findAll(): List<CoinsEntity>
