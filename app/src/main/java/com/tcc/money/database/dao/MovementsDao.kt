@@ -12,18 +12,18 @@ import java.util.UUID
 @Dao
 interface MovementsDao {
     @Insert
-    fun save(movementsEntity: MovementsEntity): Long
+    suspend fun save(movementsEntity: MovementsEntity): Long
 
     @Query("SELECT * FROM movements WHERE uuid = :uuid")
-    fun findByUUID(uuid: UUID): MovementsEntity
+    suspend fun findByUUID(uuid: UUID): MovementsEntity
 
     @Query("SELECT * FROM movements")
-    fun findAll(): List<MovementsEntity>
+    suspend  fun findAll(): List<MovementsEntity>
 
     @Query("SELECT * FROM movements WHERE sync = 0")
-    fun findByNotSync(): List<MovementsEntity>
+    suspend fun findByNotSync(): List<MovementsEntity>
 
     @Update
-    fun update(movementsEntity: MovementsEntity): Int
+    suspend  fun update(movementsEntity: MovementsEntity): Int
 
 }

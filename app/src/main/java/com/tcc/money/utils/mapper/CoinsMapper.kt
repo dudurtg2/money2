@@ -4,10 +4,32 @@ import com.tcc.money.data.models.Coins
 import com.tcc.money.database.entities.CoinsEntity
 import org.mapstruct.Mapper
 
-@Mapper
-interface CoinsMapper {
-    fun toCoins(coinsEntity: CoinsEntity): Coins
-    fun toCoinsEntity(coins: Coins): CoinsEntity
-    fun toCoinsList(coinsEntityList: List<CoinsEntity>): List<Coins>
-    fun toCoinsEntityList(coinsList: List<Coins>): List<CoinsEntity>
+class CoinsMapper {
+
+    fun toCoins(entity: CoinsEntity): Coins {
+        return Coins(
+            uuid = entity.uuid,
+            name = entity.name,
+            image = entity.image,
+            symbol = entity.symbol
+        )
+    }
+
+    fun toCoinsEntity(domain: Coins): CoinsEntity {
+        return CoinsEntity(
+            uuid = domain.uuid,
+            name = domain.name,
+            image = domain.image,
+            symbol = domain.symbol,
+            sync = false
+        )
+    }
+
+    fun toCoinsList(entities: List<CoinsEntity>): List<Coins> {
+        return entities.map { toCoins(it) }
+    }
+
+    fun toCoinsEntityList(domains: List<Coins>): List<CoinsEntity> {
+        return domains.map { toCoinsEntity(it) }
+    }
 }

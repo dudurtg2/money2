@@ -12,11 +12,11 @@ import java.util.UUID
 
 interface CoinsApi {
     @GET("api/coins/findAll")
-     suspend fun findAll(): Response<ResponseBody>
+      fun findAll(): Response<ResponseBody>
 
     @GET("api/coins/find/{uuid}")
-     suspend fun findByUUID(@Path("uuid") uuid: UUID): Response<ResponseBody>
+      fun findByUUID(@Path("uuid") uuid: UUID): Response<ResponseBody>
 
     @POST("api/coins/save")
-     suspend fun save(@Body coins: Coins): Response<ResponseBody>
+      fun save(@Body coins: Coins): Response<ResponseBody>
 }

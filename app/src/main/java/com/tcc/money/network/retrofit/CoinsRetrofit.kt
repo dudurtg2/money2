@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object CoinsRetrofit {
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private const val BASE_URL = "http://10.0.0.150:8080/"
 
     fun create(context: Context): CoinsApi {
         val token = AuthenticateService.getToken(context)

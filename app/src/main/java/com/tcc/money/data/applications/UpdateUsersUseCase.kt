@@ -10,7 +10,7 @@ class UpdateUsersUseCase(context: Context) {
     private val usersDao = DataBase.getDatabase(context).usersDao()
 
 
-    suspend fun execute(users: Users): Users {
+     fun execute(users: Users): Users {
         return usersRepository.update(users)
     }
 

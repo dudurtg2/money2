@@ -5,23 +5,25 @@ import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.MovementsRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.MovementsMapper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.mapstruct.factory.Mappers
 
 class SaveMovementsUseCase(context: Context) {
     private val movementsRepository = MovementsRepository(context)
     private val movementsDao = DataBase.getDatabase(context).movementsDao()
     private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
-    private val movementsMapper = Mappers.getMapper(MovementsMapper::class.java)
-    suspend fun execute(movements: Movements): Movements {
+    private val movementsMapper = MovementsMapper()
+     suspend fun execute(movements: Movements): Movements = withContext(Dispatchers.IO)  {
         if (hasPremiumAccountUseCase) {
-            return movementsRepository.save(movements)
+             movementsRepository.save(movements)
         } else {
             val movementsEntity = movementsMapper.toMovementsEntity(movements)
             movementsEntity.sync = false
             movementsDao.save(
                 movementsEntity
             )
-            return movementsMapper.toMovements( movementsDao.findByUUID(movementsEntity.uuid
+             movementsMapper.toMovements( movementsDao.findByUUID(movementsEntity.uuid
                 )
             )
         }

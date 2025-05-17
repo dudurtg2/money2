@@ -15,7 +15,7 @@ import java.util.UUID
 class MovementsRepository(context: Context) : IMovementsRepository {
     private val api = MovementsRetrofit.create(context)
 
-    override suspend fun save(movements: Movements): Movements {
+    override  fun save(movements: Movements): Movements {
         val response = api.save(movements)
         if (response.isSuccessful) {
             val json = response.body()?.string()
@@ -39,7 +39,7 @@ class MovementsRepository(context: Context) : IMovementsRepository {
         }
     }
 
-    override suspend fun findByUUID(uuid: UUID): Movements {
+    override  fun findByUUID(uuid: UUID): Movements {
         val response = api.findByUUID(uuid)
         if (response.isSuccessful) {
             val json = response.body()?.string()
@@ -63,7 +63,7 @@ class MovementsRepository(context: Context) : IMovementsRepository {
         }
     }
 
-    override suspend fun findAll(): List<Movements> {
+    override  fun findAll(): List<Movements> {
         val response = api.findAll()
 
         if (response.isSuccessful) {

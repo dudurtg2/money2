@@ -4,7 +4,7 @@ import com.tcc.money.data.models.Coins
 import java.util.UUID
 
 interface ICoinsRepository {
-    suspend fun save(coins: Coins): Coins
-    suspend fun findByUUID(uuid: UUID): Coins
-    suspend fun findAll(): List<Coins>
+     fun save(coins: Coins): Coins
+     fun findByUUID(uuid: UUID): Coins
+     fun findAll(): List<Coins>
 }

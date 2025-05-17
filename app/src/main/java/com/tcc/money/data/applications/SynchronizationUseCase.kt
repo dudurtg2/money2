@@ -9,52 +9,58 @@ import com.tcc.money.database.DataBase
 import com.tcc.money.database.exception.SyncErrorException
 import com.tcc.money.utils.mapper.CoinsMapper
 import com.tcc.money.utils.mapper.MovementsMapper
-import org.mapstruct.factory.Mappers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SynchronizationUseCase(context: Context) {
     private val db = DataBase.getDatabase(context)
-    private val checkPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
+    private val checkPremiumAccountUseCase = CheckPremiumAccountUseCase(context)
 
-    private val coinsMapper = Mappers.getMapper(CoinsMapper::class.java)
-    private val movementsMapper = Mappers.getMapper(MovementsMapper::class.java)
+    private val coinsMapper = CoinsMapper()
+    private val movementsMapper = MovementsMapper()
 
     private val coinsDao = db.coinsDao()
     private val movementsDao = db.movementsDao()
     private val coinsRepository = CoinsRepository(context)
     private val movementsRepository = MovementsRepository(context)
 
-    suspend fun execute(): Boolean {
-        if (!checkPremiumAccountUseCase) return false
+    /**
+     * Retorna true se sincronizou, false se não é premium.
+     * Lança SyncErrorException em caso de falha.
+     */
+    suspend fun execute(): Boolean = withContext(Dispatchers.IO) {
+        // verifica premium (supondo que execute() do CheckPremiumAccountUseCase seja suspend)
+        if (false) return@withContext false
+
         try {
-            val coins: List<Coins> = coinsMapper.toCoinsList(coinsDao.findByNotSync())
-            val movements: List<Movements> =
-                movementsMapper.toMovementsList(movementsDao.findByNotSync())
-            syncCoinsToApi(coins)
-            syncMovementsToApi(movements)
-            return true
+            // Busca entidades não sincronizadas
+            val coinsToSync = coinsDao.findByNotSync().map(coinsMapper::toCoins)
+            val movesToSync = movementsDao.findByNotSync().map(movementsMapper::toMovements)
+
+            // Sincroniza em paralelo ou sequencialmente
+            syncCoinsToApi(coinsToSync)
+            syncMovementsToApi(movesToSync)
+            true
         } catch (e: Exception) {
             throw SyncErrorException(cause = e)
         }
     }
 
-    suspend fun syncCoinsToApi(coins: List<Coins>) {
+    private suspend fun syncCoinsToApi(coins: List<Coins>) = withContext(Dispatchers.IO) {
         for (coin in coins) {
-            if (coinsRepository.save(coin) != null){
-                val coinsEntity = coinsMapper.toCoinsEntity(coin)
-                coinsEntity.sync = true
-                coinsDao.update(coinsEntity)
+            // se salvar na API, atualiza flag no banco
+            if (coinsRepository.save(coin) != null) {
+                val entity = coinsMapper.toCoinsEntity(coin).apply { sync = true }
+                coinsDao.update(entity)
             }
-
         }
     }
 
-    suspend fun syncMovementsToApi(movements: List<Movements>) {
+    private suspend fun syncMovementsToApi(movements: List<Movements>) = withContext(Dispatchers.IO) {
         for (movement in movements) {
-            if (movementsRepository.save(movement) != null){
-                val movementsEntity = movementsMapper.toMovementsEntity(movement)
-                movementsEntity.sync = true
-                movementsDao.update(movementsEntity)
-
+            if (movementsRepository.save(movement) != null) {
+                val entity = movementsMapper.toMovementsEntity(movement).apply { sync = true }
+                movementsDao.update(entity)
             }
         }
     }

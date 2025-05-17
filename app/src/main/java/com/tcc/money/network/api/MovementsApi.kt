@@ -14,11 +14,11 @@ import java.util.UUID
 
 interface MovementsApi {
     @GET("api/movements/findAll")
-     suspend fun findAll(): Response<ResponseBody>
+      fun findAll(): Response<ResponseBody>
 
     @GET("api/movements/find/{uuid}")
-     suspend fun findByUUID(@Path("uuid") uuid: UUID,): Response<ResponseBody>
+      fun findByUUID(@Path("uuid") uuid: UUID,): Response<ResponseBody>
 
     @POST("api/movements/save")
-     suspend fun save(@Body movements: Movements): Response<ResponseBody>
+      fun save(@Body movements: Movements): Response<ResponseBody>
 }

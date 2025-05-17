@@ -13,7 +13,7 @@ class CoinsRepository(context: Context): ICoinsRepository {
 
     private val api = CoinsRetrofit.create(context)
 
-    override suspend fun save(coins: Coins): Coins {
+    override  fun save(coins: Coins): Coins {
         val response = api.save(coins)
         if (response.isSuccessful) {
             val json = response.body()?.string()
@@ -31,7 +31,7 @@ class CoinsRepository(context: Context): ICoinsRepository {
 
     }
 
-    override suspend fun findByUUID(uuid: UUID): Coins {
+    override  fun findByUUID(uuid: UUID): Coins {
         val response = api.findByUUID(uuid)
         if (response.isSuccessful) {
             val json = response.body()?.string()
@@ -49,7 +49,7 @@ class CoinsRepository(context: Context): ICoinsRepository {
 
     }
 
-    override suspend fun findAll(): List<Coins> {
+    override  fun findAll(): List<Coins> {
         val response = api.findAll()
         if (response.isSuccessful) {
             val json = response.body()?.string()

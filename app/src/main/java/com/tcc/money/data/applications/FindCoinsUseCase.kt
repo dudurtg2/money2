@@ -5,28 +5,30 @@ import com.tcc.money.data.models.Coins
 import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.CoinsMapper
-import org.mapstruct.factory.Mappers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class FindCoinsUseCase(context: Context) {
     private val coinsRepository = CoinsRepository(context)
     private val coinsDao = DataBase.getDatabase(context).coinsDao()
     private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
-    private val coinsMapper = Mappers.getMapper(CoinsMapper::class.java)
+    private val coinsMapper = CoinsMapper()
 
-    suspend fun execute(): List<Coins> {
+
+    suspend fun execute(): List<Coins> = withContext(Dispatchers.IO) {
         if (hasPremiumAccountUseCase) {
-            return coinsRepository.findAll()
+            coinsRepository.findAll()
         } else {
-            return coinsMapper.toCoinsList(coinsDao.findAll())
+            coinsMapper.toCoinsList(coinsDao.findAll())
         }
     }
 
-    suspend  fun execute(index: UUID): Coins {
+    suspend fun execute(index: UUID): Coins = withContext(Dispatchers.IO) {
         if (hasPremiumAccountUseCase) {
-            return coinsRepository.findByUUID(index)
+            coinsRepository.findByUUID(index)
         } else {
-            return coinsMapper.toCoins(coinsDao.findByUUID(index))
+            coinsMapper.toCoins(coinsDao.findByUUID(index))
         }
     }
 }

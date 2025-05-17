@@ -12,18 +12,18 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.Call
 
 interface UsersApi{
-    @GET("api/users/find")
-    suspend fun find(): Response<ResponseBody>
+    @GET("api/users/refresh-token")
+     fun refreshToken(): Call<ResponseBody>
 
     @POST("api/users/save")
-    suspend fun save(@Body users: Users): Response<ResponseBody>
+     fun save(@Body users: Users): Call<ResponseBody>
 
-    @POST("api/users/login")
-    suspend fun login(login: Login): Response<ResponseBody>
+    @POST("api/user/login")
+     fun login(@Body login: Login): Call<ResponseBody>
 
     @PUT("api/users/update")
-    suspend fun update(@Body users: Users): Response<ResponseBody>
+     fun update(@Body users: Users): Call<ResponseBody>
 }
