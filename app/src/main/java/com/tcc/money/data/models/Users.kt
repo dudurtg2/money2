@@ -6,12 +6,12 @@ import java.util.UUID
 
 
 data class Users(
-    val uuid: UUID,
-    val nome: String,
-    val dataNascimento: LocalDateTime,
-    val genero: String,
-    val email: String,
-    val cpf: String,
-    val telefone: String,
-    val type: TypeAccount
+    var uuid: UUID,
+    var nome: String,
+    var dataNascimento: LocalDateTime,
+    var genero: String,
+    var email: String,
+    var cpf: String,
+    var telefone: String,
+    var type: TypeAccount
 )

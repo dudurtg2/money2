@@ -7,6 +7,7 @@ import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.CoinsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class SaveCoinsUseCase(context: Context) {
     private val coinsRepository = CoinsRepository(context)
@@ -16,9 +17,11 @@ class SaveCoinsUseCase(context: Context) {
 
 
     suspend fun execute(coins: Coins): Coins = withContext(Dispatchers.IO) {
+        coins.uuid = UUID.randomUUID()
         if (hasPremiumAccountUseCase) {
             coinsRepository.save(coins)
         } else {
+            coins.uuid = UUID.randomUUID()
             val coinsEntity = coinsMapper.toCoinsEntity(coins).apply {
                 sync = false
             }

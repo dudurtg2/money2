@@ -10,9 +10,6 @@ class CheckPremiumAccountUseCase(context: Context) {
     private val usersRepository = UsersRepository(context)
 
     fun execute(): Boolean {
-
-
             return false
-        
     }
 }

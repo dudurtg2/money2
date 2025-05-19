@@ -10,7 +10,7 @@ import java.util.UUID
 @Entity(tableName = "movements")
 data class MovementsEntity(
     @PrimaryKey
-    val uuid: UUID,
+    var uuid: UUID,
     var sync: Boolean,
 
     val date: LocalDateTime,

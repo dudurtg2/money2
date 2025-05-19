@@ -8,7 +8,6 @@ class RefreshTokenService(context: Context) {
 
     private fun execute(){
 
-
         usersRepository.refreshToken()
 
     }

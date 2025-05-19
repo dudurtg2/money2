@@ -3,11 +3,13 @@ package com.tcc.money.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.UUID
+import javax.annotation.processing.Generated
 
 @Entity(tableName = "coins")
 data class CoinsEntity(
     @PrimaryKey
-    val uuid: UUID,
+
+    var uuid: UUID,
     var sync: Boolean,
 
     val name: String,

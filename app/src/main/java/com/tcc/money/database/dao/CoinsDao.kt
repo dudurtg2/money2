@@ -24,4 +24,10 @@ interface CoinsDao {
 
     @Update
     suspend fun update(coinsEntity: CoinsEntity): Int
+
+    @Query("UPDATE coins SET sync = :sync WHERE uuid = :uuid")
+    suspend fun updateSyncFlag(uuid: UUID, sync: Boolean): Int
+
+    @Query("UPDATE coins SET uuid = :newUuid WHERE uuid = :oldUuid")
+    suspend fun updateUUID(oldUuid: UUID, newUuid: UUID): Int
 }
