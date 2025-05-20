@@ -26,9 +26,4 @@ interface MovementsDao {
     @Update
     suspend  fun update(movementsEntity: MovementsEntity): Int
 
-    @Query("UPDATE movements SET sync = :sync WHERE uuid = :uuid")
-    suspend fun updateSyncFlag(uuid: UUID, sync: Boolean): Int
-
-    @Query("UPDATE movements SET uuid = :newUuid WHERE uuid = :oldUuid")
-    suspend fun updateUUID(oldUuid: UUID, newUuid: UUID): Int
 }

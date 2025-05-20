@@ -34,6 +34,23 @@ class UsersRepository(context: Context) : IUsersRepository {
         }
     }
 
+    override fun check(): TypeAccount {
+        val response = api.check()
+
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            Log.d("UsersRepository", "Resposta da API: $json")
+
+            val jsonObject = JSONObject(json)
+            val role = TypeAccount.valueOf(jsonObject.getString("role"))
+
+            return role
+        }
+        else {
+            Log.e("UsersRepository", "Erro no login: código ${response.code()}")
+            throw Exception("Erro no login: ${response.code()}")
+        }
+    }
 
     override fun login(login: Login): Users {
         Log.d("UsersRepository", "Iniciando login para: ${login.login}")

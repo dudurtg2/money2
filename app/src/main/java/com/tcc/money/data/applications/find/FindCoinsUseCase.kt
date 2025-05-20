@@ -1,6 +1,7 @@
-package com.tcc.money.data.applications
+package com.tcc.money.data.applications.find
 
 import android.content.Context
+import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.database.DataBase

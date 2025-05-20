@@ -1,17 +1,16 @@
 package com.tcc.money.ui.screens.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.tcc.money.data.applications.FindCoinsUseCase
+import com.tcc.money.data.applications.find.FindCoinsUseCase
 import com.tcc.money.data.applications.LoginUseCase
 import com.tcc.money.databinding.ActivityMainBinding
 import com.tcc.money.data.models.Coins
-import com.tcc.money.data.applications.SaveCoinsUseCase
+import com.tcc.money.data.applications.save.SaveCoinsUseCase
 import com.tcc.money.data.dto.Login
 import com.tcc.money.data.models.Users
 import kotlinx.coroutines.launch

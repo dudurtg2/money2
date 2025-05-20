@@ -1,4 +1,4 @@
-package com.tcc.money.data.applications
+package com.tcc.money.data.applications.save
 
 import android.content.Context
 import com.tcc.money.data.models.Coins

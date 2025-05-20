@@ -14,7 +14,7 @@ interface CoinsApi {
     @GET("api/coins/findAll")
       fun findAll(): Response<ResponseBody>
 
-    @GET("api/coins/find/{uuid}")
+    @GET("api/coins/find")
       fun findByUUID(@Path("uuid") uuid: UUID): Response<ResponseBody>
 
     @POST("api/coins/save")

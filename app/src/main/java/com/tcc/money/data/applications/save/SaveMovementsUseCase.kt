@@ -1,13 +1,13 @@
-package com.tcc.money.data.applications
+package com.tcc.money.data.applications.save
 
 import android.content.Context
+import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.MovementsRepository
 import com.tcc.money.database.DataBase
 import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.mapstruct.factory.Mappers
 import java.util.UUID
 
 class SaveMovementsUseCase(context: Context) {

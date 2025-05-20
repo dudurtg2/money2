@@ -1,4 +1,4 @@
-package com.tcc.money.data.applications
+package com.tcc.money.data.applications.update
 
 import android.content.Context
 import com.tcc.money.data.models.Users
