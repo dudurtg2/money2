@@ -1,34 +1,46 @@
 package com.tcc.money.data.applications.find
 
-import android.content.Context
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.MovementsRepository
-import com.tcc.money.database.DataBase
+import com.tcc.money.database.dao.MovementsDao
 import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
-class FindMovementsUseCase(context: Context) {
-    private val movementsRepository = MovementsRepository(context)
-    private val movementsDao = DataBase.getDatabase(context).movementsDao()
-    private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
-    private val movementsMapper = MovementsMapper()
+class FindMovementsUseCase(
+    private val repository: MovementsRepository,
+    private val dao: MovementsDao,
+    private val checkPremium: CheckPremiumAccountUseCase,
+    private val mapper: MovementsMapper
+) {
 
-    suspend fun execute(): List<Movements> = withContext(Dispatchers.IO) {
-         if (hasPremiumAccountUseCase) {
-            movementsRepository.findAll()
+    suspend fun executeAll(): List<Movements> = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+
+        if (isPremium) {
+            val remoteList = repository.findAll()
+            val entities = mapper
+                .toMovementsEntityList(remoteList)
+                .onEach { it.sync = true }
+            dao.saveAll(entities)
+            remoteList
         } else {
-            movementsMapper.toMovementsList(movementsDao.findAll())
+            mapper.toMovementsList(dao.findAll())
         }
     }
 
-    suspend fun execute(uuid: UUID): Movements = withContext(Dispatchers.IO) {
-         if (hasPremiumAccountUseCase) {
-            movementsRepository.findByUUID(uuid)
+    suspend fun executeById(uuid: UUID): Movements = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+
+        if (isPremium) {
+            val remote = repository.findByUUID(uuid)
+            val entity = mapper.toMovementsEntity(remote).apply { sync = true }
+            dao.update( entity)
+            remote
         } else {
-            movementsMapper.toMovements(movementsDao.findByUUID(uuid))
+            mapper.toMovements(dao.findByUUID(uuid))
         }
     }
 }

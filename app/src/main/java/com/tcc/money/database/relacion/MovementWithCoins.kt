@@ -6,10 +6,10 @@ import com.tcc.money.database.entities.CoinsEntity
 import com.tcc.money.database.entities.MovementsEntity
 
 data class MovementWithCoins(
-    @Embedded val movement: MovementsEntity,
+    @Embedded           val movement: MovementsEntity,
     @Relation(
-        parentColumn = "coinsId",
-        entityColumn = "id"
+        parentColumn   = "coins_uuid",
+        entityColumn   = "uuid"
     )
-    val coins: CoinsEntity
+    val coin: CoinsEntity    // carrega os dados da moeda relacionada
 )

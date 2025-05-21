@@ -10,8 +10,8 @@ import com.tcc.money.database.entities.MovementsEntity
 data class GoalsWithCoins(
     @Embedded val goals: GoalsEntity,
     @Relation(
-        parentColumn = "coinsId",
-        entityColumn = "id"
+        parentColumn   = "coins_uuid",
+        entityColumn   = "uuid"
     )
-    val coins: CoinsEntity
+    val coin: CoinsEntity
 )

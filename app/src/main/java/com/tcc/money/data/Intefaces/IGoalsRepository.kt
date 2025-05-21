@@ -8,4 +8,7 @@ interface IGoalsRepository {
      fun save(goals: Goals): Goals
      fun findByUUID(uuid: UUID): Goals
      fun findAll(): List<Goals>
+     fun delete(uuid: UUID)
+     fun update(uuid: UUID, goals: Goals): Goals
+
 }

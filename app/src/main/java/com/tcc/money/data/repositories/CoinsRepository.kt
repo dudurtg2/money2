@@ -1,11 +1,13 @@
 package com.tcc.money.data.repositories
 
 import android.content.Context
+import android.util.Log
 import com.tcc.money.data.Intefaces.ICoinsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.network.retrofit.CoinsRetrofit
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.IOException
 import java.util.UUID
 
 
@@ -13,26 +15,40 @@ class CoinsRepository(context: Context): ICoinsRepository {
 
     private val api = CoinsRetrofit.create(context)
 
-    override  fun save(coins: Coins): Coins {
-        val response = api.save(coins)
+
+    override fun save(coins: Coins): Coins {
+        Log.d("APImoney", "save() called with: $coins")
+
+        val response = api.save(coins).execute()
+        Log.d("APImoney", "API response code: ${response.code()}, message: ${response.message()}")
+
         if (response.isSuccessful) {
-            val json = response.body()?.string()
-            val jsonObject = JSONObject(json)
+            val body = response.body()?.use { it.string() }
+            if (body.isNullOrBlank()) {
+                Log.e("APImoney", "Response body was null or empty")
+                throw IOException("Resposta vazia ao salvar Coins")
+            }
+            Log.d("APImoney", "Raw JSON from server: $body")
 
-            return Coins(
-                name =  jsonObject.getString("name"),
+            val jsonObject = JSONObject(body)
+            val mapped = Coins(
+                name   = jsonObject.getString("name"),
                 symbol = jsonObject.getString("symbol"),
-                image = jsonObject.getString("image"),
-                uuid =  UUID.fromString(jsonObject.getString("uuid"))
+                image  = jsonObject.getString("image"),
+                uuid   = UUID.fromString(jsonObject.getString("uuid"))
             )
-        } else {
-            throw Exception("Erro no login: ${response.code()}")
-        }
+            Log.d("APImoney", "Mapped Coins object: $mapped")
+            return mapped
 
+        } else {
+            Log.e("APImoney", "Erro ao salvar Coins: HTTP ${response.code()}")
+            throw IOException("Erro ao salvar Coins: HTTP ${response.code()}")
+        }
     }
 
+
     override  fun findByUUID(uuid: UUID): Coins {
-        val response = api.findByUUID(uuid)
+        val response = api.findByUUID(uuid).execute()
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -50,7 +66,7 @@ class CoinsRepository(context: Context): ICoinsRepository {
     }
 
     override  fun findAll(): List<Coins> {
-        val response = api.findAll()
+        val response = api.findAll().execute()
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonArray = JSONArray(json)
@@ -76,5 +92,26 @@ class CoinsRepository(context: Context): ICoinsRepository {
             throw Exception("Erro na requisição: ${response.code()}")
         }
 
+    }
+
+    override fun delete(uuid: UUID) {
+        api.delete(uuid)
+    }
+
+    override fun update(uuid: UUID, coins: Coins): Coins {
+        val response = api.update(uuid, coins).execute()
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            val jsonObject = JSONObject(json)
+
+            return Coins(
+                name =  jsonObject.getString("name"),
+                symbol = jsonObject.getString("symbol"),
+                image = jsonObject.getString("image"),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
+            )
+        } else {
+            throw Exception("Erro no login: ${response.code()}")
+        }
     }
 }

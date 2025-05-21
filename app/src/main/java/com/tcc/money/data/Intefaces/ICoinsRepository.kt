@@ -7,4 +7,6 @@ interface ICoinsRepository {
      fun save(coins: Coins): Coins
      fun findByUUID(uuid: UUID): Coins
      fun findAll(): List<Coins>
+     fun delete(uuid: UUID)
+     fun update(uuid: UUID, coins: Coins): Coins
 }

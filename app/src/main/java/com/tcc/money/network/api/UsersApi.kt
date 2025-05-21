@@ -25,7 +25,7 @@ interface UsersApi{
      fun login(@Body login: Login): Call<ResponseBody>
 
     @GET("api/user/check")
-    fun check(): Response<ResponseBody>
+    fun check(): Call<ResponseBody>
 
     @PUT("api/users/update")
      fun update(@Body users: Users): Call<ResponseBody>

@@ -7,4 +7,7 @@ interface IMovementsRepository {
      fun save(movements: Movements): Movements
      fun findByUUID(uuid: UUID): Movements
      fun findAll(): List<Movements>
+     fun delete(uuid: UUID)
+     fun update(uuid: UUID, movements: Movements): Movements
+
 }

@@ -17,6 +17,7 @@ class CoinsMapper {
 
     fun toCoinsEntity(domain: Coins): CoinsEntity {
         return CoinsEntity(
+
             uuid = domain.uuid,
             name = domain.name,
             image = domain.image,

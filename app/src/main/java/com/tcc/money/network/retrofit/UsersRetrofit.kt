@@ -13,12 +13,12 @@ object UsersRetrofit {
     private const val BASE_URL = "http://10.0.0.150:8080"
 
     fun create(context: Context): UsersApi {
-
+        val token = AuthenticateService.getToken(context)
 
         val client = OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val req = chain.request().newBuilder()
-
+                    .addHeader("Authorization", "Bearer $token")
                     .build()
                 chain.proceed(req)
             }

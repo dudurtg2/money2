@@ -16,7 +16,7 @@ class MovementsRepository(context: Context) : IMovementsRepository {
     private val api = MovementsRetrofit.create(context)
 
     override  fun save(movements: Movements): Movements {
-        val response = api.save(movements)
+        val response = api.save(movements).execute()
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -40,7 +40,7 @@ class MovementsRepository(context: Context) : IMovementsRepository {
     }
 
     override  fun findByUUID(uuid: UUID): Movements {
-        val response = api.findByUUID(uuid)
+        val response = api.findByUUID(uuid).execute()
         if (response.isSuccessful) {
             val json = response.body()?.string()
             val jsonObject = JSONObject(json)
@@ -64,7 +64,7 @@ class MovementsRepository(context: Context) : IMovementsRepository {
     }
 
     override  fun findAll(): List<Movements> {
-        val response = api.findAll()
+        val response = api.findAll().execute()
 
         if (response.isSuccessful) {
             val json = response.body()?.string() ?: throw Exception("Resposta vazia")
@@ -95,6 +95,34 @@ class MovementsRepository(context: Context) : IMovementsRepository {
             return movementsList
         } else {
             throw Exception("Erro na requisição: ${response.code()}")
+        }
+    }
+
+    override fun delete(uuid: UUID) {
+        api.delete(uuid)
+    }
+
+    override fun update(uuid: UUID, movements: Movements): Movements {
+        val response = api.update(uuid, movements).execute()
+        if (response.isSuccessful) {
+            val json = response.body()?.string()
+            val jsonObject = JSONObject(json)
+            val coinsObject = jsonObject.getJSONObject("coins")
+            return Movements(
+                date = LocalDateTime.parse(jsonObject.getString("date")),
+                value = jsonObject.getString("value").toFloat(),
+                price = jsonObject.getString("price").toFloat(),
+                coins = Coins(
+                    name = coinsObject.getString("name"),
+                    symbol = coinsObject.getString("symbol"),
+                    image = coinsObject.getString("image"),
+                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
+                ),
+                typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins")),
+                uuid =  UUID.fromString(jsonObject.getString("uuid"))
+            )
+        } else {
+            throw Exception("Erro no login: ${response.code()}")
         }
     }
 }

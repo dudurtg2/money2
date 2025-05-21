@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.mapstruct)

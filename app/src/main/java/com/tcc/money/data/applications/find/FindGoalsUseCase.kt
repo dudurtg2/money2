@@ -1,34 +1,43 @@
 package com.tcc.money.data.applications.find
 
-import android.content.Context
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Goals
 import com.tcc.money.data.repositories.GoalsRepository
-import com.tcc.money.database.DataBase
+import com.tcc.money.database.dao.GoalsDao
 import com.tcc.money.utils.mapper.GoalsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
-class FindGoalsUseCase(context: Context) {
-    private val goalsRepository = GoalsRepository(context)
-    private val goalsDao = DataBase.getDatabase(context).goalsDao()
-    private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
-    private val goalsMapper = GoalsMapper()
+class FindGoalsUseCase(
+    private val repository: GoalsRepository,
+    private val dao: GoalsDao,
+    private val checkPremium: CheckPremiumAccountUseCase,
+    private val mapper: GoalsMapper
+) {
 
-    suspend fun execute(): List<Goals> = withContext(Dispatchers.IO) {
-         if (hasPremiumAccountUseCase) {
-            goalsRepository.findAll()
+    suspend fun executeAll(): List<Goals> = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+        if (isPremium) {
+            val remoteList = repository.findAll()
+            val entities = mapper.toGoalsEntityList(remoteList)
+                .onEach { it.sync = true }
+            dao.saveAll(entities)
+            remoteList
         } else {
-            goalsMapper.toGoalsList(goalsDao.findAll())
+            mapper.toGoalsList(dao.findAll())
         }
     }
 
-    suspend fun execute(uuid: UUID): Goals = withContext(Dispatchers.IO) {
-         if (hasPremiumAccountUseCase) {
-            goalsRepository.findByUUID(uuid)
+    suspend fun executeById(uuid: UUID): Goals = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+        if (isPremium) {
+            val remote = repository.findByUUID(uuid)
+            val entity = mapper.toGoalsEntity(remote).apply { sync = true }
+            dao.update(entity)
+            remote
         } else {
-            goalsMapper.toGoals(goalsDao.findByUUID(uuid))
+            mapper.toGoals(dao.findByUUID(uuid))
         }
     }
 }

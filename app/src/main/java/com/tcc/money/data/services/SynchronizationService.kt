@@ -1,11 +1,11 @@
-package com.tcc.money.data.applications
+package com.tcc.money.data.services
 
 import android.content.Context
+import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.data.repositories.MovementsRepository
-import com.tcc.money.data.services.isNetworkAvailableService
 import com.tcc.money.database.DataBase
 import com.tcc.money.database.exception.SyncErrorException
 import com.tcc.money.utils.mapper.CoinsMapper
@@ -13,13 +13,13 @@ import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SynchronizationUseCase(context: Context) {
+class SynchronizationService(context: Context) {
     private val db = DataBase.getDatabase(context)
     private val checkPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
 
     private val coinsMapper = CoinsMapper()
     private val movementsMapper = MovementsMapper()
-    private val isNetworkAvailableService = isNetworkAvailableService().execute(context)
+    private val isNetworkAvailableService = NetWorkIsConnectedService().execute(context)
     private val coinsDao = db.coinsDao()
     private val movementsDao = db.movementsDao()
     private val coinsRepository = CoinsRepository(context)

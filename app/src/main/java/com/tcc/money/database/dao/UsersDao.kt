@@ -2,6 +2,7 @@ package com.tcc.money.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tcc.money.data.Intefaces.IUsersRepository
 import com.tcc.money.data.models.Users
@@ -10,7 +11,7 @@ import java.util.UUID
 
 @Dao
 interface UsersDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(users: UsersEntity): Long
 
     @Query("SELECT * FROM users WHERE uuid = :uuid")

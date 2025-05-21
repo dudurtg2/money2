@@ -23,10 +23,10 @@ class LoginUseCase(context: Context) {
         Log.d("LoginUseCase", "Login bem-sucedido. Usuário retornado: ${users.uuid}")
 
         val entity = usersMapper.toUsersEntity(users)
-        if (usersDao.findByUUID(entity.uuid) == null) {
-            usersDao.save(entity)
-            Log.d("LoginUseCase", "Usuário salvo no banco local: ${entity.uuid}")
-        }
+        Log.d("LoginUseCase", "Usuário salvo no banco local: ${entity.uuid}")
+
+        usersDao.save(entity)
+
 
         val usersEntity = usersDao.findByUUID(users.uuid)
         Log.d("LoginUseCase", "Usuário recuperado do banco local: ${usersEntity.uuid}")

@@ -1,4 +1,4 @@
-package com.tcc.money.data.applications.save
+package com.tcc.money.data.applications.delete
 
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Movements
@@ -9,25 +9,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
-class SaveMovementsUseCase(
+class DeleteMovementsUseCase(
     private val repository: MovementsRepository,
     private val dao: MovementsDao,
     private val checkPremium: CheckPremiumAccountUseCase,
     private val mapper: MovementsMapper
 ) {
-    suspend fun execute(input: Movements): Movements = withContext(Dispatchers.IO) {
-        val movWithId = input.copy(uuid = UUID.randomUUID())
+    suspend fun execute(uuid: UUID) = withContext(Dispatchers.IO) {
         val isPremium = checkPremium.execute()
 
         if (isPremium) {
-            val savedRemote = repository.save(movWithId)
-            val entity = mapper.toMovementsEntity(savedRemote).apply { sync = true }
-            dao.save(entity)
-            savedRemote
+            repository.delete(uuid)
+            dao.delete(uuid)
         } else {
-            val entity = mapper.toMovementsEntity(movWithId).apply { sync = false }
-            dao.save(entity)
-            mapper.toMovements(dao.findByUUID(entity.uuid))
+            dao.delete(uuid)
         }
     }
 }

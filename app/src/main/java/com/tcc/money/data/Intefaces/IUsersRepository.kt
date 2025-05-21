@@ -9,5 +9,5 @@ interface IUsersRepository {
      fun update(users: Users): Users
      fun refreshToken()
      fun check(): TypeAccount
-
+     fun logout()
 }

@@ -6,6 +6,7 @@ import com.tcc.money.utils.enums.TypeCoins
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 class Converters {
 
@@ -18,22 +19,34 @@ class Converters {
         value?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
 
     @TypeConverter
-    fun toLocalDate(value: String): LocalDate = LocalDate.parse(value)
+    fun toLocalDate(value: String): LocalDate =
+        LocalDate.parse(value)
 
     @TypeConverter
-    fun fromLocalDate(date: LocalDate): String = date.toString()
+    fun fromLocalDate(date: LocalDate): String =
+        date.toString()
 
     @TypeConverter
-    fun fromTypeCoins(type: TypeCoins): String = type.name
+    fun fromTypeCoins(type: TypeCoins): String =
+        type.name
 
     @TypeConverter
-    fun toTypeCoins(value: String): TypeCoins = TypeCoins.valueOf(value)
+    fun toTypeCoins(value: String): TypeCoins =
+        TypeCoins.valueOf(value)
 
     @TypeConverter
-    fun toTypeAccount(value: String): TypeAccount = TypeAccount.valueOf(value)
+    fun toTypeAccount(value: String): TypeAccount =
+        TypeAccount.valueOf(value)
 
     @TypeConverter
-    fun fromTypeAccount(type: TypeAccount): String = type.name
+    fun fromTypeAccount(type: TypeAccount): String =
+        type.name
 
+    @TypeConverter
+    fun fromUUID(uuid: UUID?): String? =
+        uuid?.toString()
 
+    @TypeConverter
+    fun toUUID(value: String?): UUID? =
+        value?.let { UUID.fromString(it) }
 }

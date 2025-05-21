@@ -1,35 +1,44 @@
 package com.tcc.money.data.applications.find
 
-import android.content.Context
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.repositories.CoinsRepository
-import com.tcc.money.database.DataBase
+import com.tcc.money.database.dao.CoinsDao
 import com.tcc.money.utils.mapper.CoinsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
-class FindCoinsUseCase(context: Context) {
-    private val coinsRepository = CoinsRepository(context)
-    private val coinsDao = DataBase.getDatabase(context).coinsDao()
-    private val hasPremiumAccountUseCase = CheckPremiumAccountUseCase(context).execute()
-    private val coinsMapper = CoinsMapper()
+class FindCoinsUseCase(
+    private val repository: CoinsRepository,
+    private val dao: CoinsDao,
+    private val checkPremium: CheckPremiumAccountUseCase,
+    private val mapper: CoinsMapper
+) {
 
-
-    suspend fun execute(): List<Coins> = withContext(Dispatchers.IO) {
-        if (hasPremiumAccountUseCase) {
-            coinsRepository.findAll()
+    suspend fun executeAll(): List<Coins> = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+        if (isPremium) {
+            val remoteList = repository.findAll()
+            val entities = mapper.toCoinsEntityList(remoteList)
+                .onEach { it.sync = true }
+            dao.saveAll(entities)
+            remoteList
         } else {
-            coinsMapper.toCoinsList(coinsDao.findAll())
+            mapper.toCoinsList(dao.findAll())
         }
     }
 
-    suspend fun execute(index: UUID): Coins = withContext(Dispatchers.IO) {
-        if (hasPremiumAccountUseCase) {
-            coinsRepository.findByUUID(index)
+    suspend fun executeById(uuid: UUID): Coins = withContext(Dispatchers.IO) {
+        val isPremium = checkPremium.execute()
+        if (isPremium) {
+            val remote = repository.findByUUID(uuid)
+            val entity = mapper.toCoinsEntity(remote).apply { sync = true }
+            dao.save(entity)
+            remote
         } else {
-            coinsMapper.toCoins(coinsDao.findByUUID(index))
+            mapper.toCoins(dao.findByUUID(uuid))
         }
     }
 }
+

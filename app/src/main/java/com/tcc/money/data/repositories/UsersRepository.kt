@@ -35,8 +35,8 @@ class UsersRepository(context: Context) : IUsersRepository {
     }
 
     override fun check(): TypeAccount {
-        val response = api.check()
-
+        val response = api.check().execute()
+        Log.d("UsersRepository", "Resposta da API: $response")
         if (response.isSuccessful) {
             val json = response.body()?.string()
             Log.d("UsersRepository", "Resposta da API: $json")
@@ -48,8 +48,12 @@ class UsersRepository(context: Context) : IUsersRepository {
         }
         else {
             Log.e("UsersRepository", "Erro no login: código ${response.code()}")
-            throw Exception("Erro no login: ${response.code()}")
+            throw Exception("Erro no login: $response")
         }
+    }
+
+    override fun logout() {
+        TODO("Not yet implemented")
     }
 
     override fun login(login: Login): Users {
