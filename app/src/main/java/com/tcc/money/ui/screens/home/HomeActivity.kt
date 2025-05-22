@@ -48,7 +48,8 @@ class HomeActivity : AppCompatActivity() {
             repository   = CoinsRepository(this),
             dao          = coinsDao,
             checkPremium = checkPremium,
-            mapper       = coinsMapper
+            mapper       = coinsMapper,
+            context = this
         )
     }
     private val loginUseCase by lazy {
@@ -115,6 +116,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // login de usuário
         binding.buttonLogin.setOnClickListener {
             lifecycleScope.launch {
                 runCatching { login() }

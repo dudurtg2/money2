@@ -1,8 +1,10 @@
 package com.tcc.money.data.applications.find
 
+import android.content.Context
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.repositories.MovementsRepository
+import com.tcc.money.data.services.SynchronizationService
 import com.tcc.money.database.dao.MovementsDao
 import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
@@ -13,13 +15,15 @@ class FindMovementsUseCase(
     private val repository: MovementsRepository,
     private val dao: MovementsDao,
     private val checkPremium: CheckPremiumAccountUseCase,
-    private val mapper: MovementsMapper
+    private val mapper: MovementsMapper,
+    private val context: Context
 ) {
 
     suspend fun executeAll(): List<Movements> = withContext(Dispatchers.IO) {
         val isPremium = checkPremium.execute()
 
         if (isPremium) {
+            SynchronizationService(context).execute()
             val remoteList = repository.findAll()
             val entities = mapper
                 .toMovementsEntityList(remoteList)
@@ -35,6 +39,7 @@ class FindMovementsUseCase(
         val isPremium = checkPremium.execute()
 
         if (isPremium) {
+            SynchronizationService(context).execute()
             val remote = repository.findByUUID(uuid)
             val entity = mapper.toMovementsEntity(remote).apply { sync = true }
             dao.update( entity)

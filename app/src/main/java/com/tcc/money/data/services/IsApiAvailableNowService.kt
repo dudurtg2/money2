@@ -27,7 +27,7 @@ class IsApiAvailableNowService(
     fun execute(context: Context): Boolean {
         if(!NetworkIsConnectedService().isConnected(context)){
             Log.d("LoginUseCase", "Network is n connected")
-            throw Exception("No internet connection")
+            return false
         }
         return try {
             val request = Request.Builder()
