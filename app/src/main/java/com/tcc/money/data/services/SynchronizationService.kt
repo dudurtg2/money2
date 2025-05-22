@@ -19,7 +19,7 @@ class SynchronizationService(context: Context) {
 
     private val coinsMapper = CoinsMapper()
     private val movementsMapper = MovementsMapper()
-    private val isNetworkAvailableService = NetWorkIsConnectedService().execute(context)
+    private val isNetworkAvailableService = NetworkIsConnectedService().isConnected(context)
     private val coinsDao = db.coinsDao()
     private val movementsDao = db.movementsDao()
     private val coinsRepository = CoinsRepository(context)

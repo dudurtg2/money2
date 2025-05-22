@@ -98,12 +98,10 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // carregar lista inteira
         binding.buttonLoadAll.setOnClickListener {
             loadAllCoins()
         }
 
-        // carregar apenas uma moeda pelo UUID
         binding.buttonLoadOne.setOnClickListener {
             lifecycleScope.launch {
                 runCatching {
@@ -117,7 +115,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // login de usuário
         binding.buttonLogin.setOnClickListener {
             lifecycleScope.launch {
                 runCatching { login() }

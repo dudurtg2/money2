@@ -9,14 +9,26 @@ import com.tcc.money.utils.mapper.UsersMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import android.util.Log
+import com.tcc.money.data.services.IsApiAvailableNowService
+import com.tcc.money.data.services.NetworkIsConnectedService
 
 class LoginUseCase(context: Context) {
     private val db = DataBase.getDatabase(context)
     private val usersRepository = UsersRepository(context)
     private val usersMapper = UsersMapper()
     private val usersDao = db.usersDao()
+    private val context = context
 
     suspend fun execute(login: Login): Users = withContext(Dispatchers.IO) {
+
+        if(!NetworkIsConnectedService().isConnected(context)){
+            Log.d("LoginUseCase", "Network is n connected")
+            throw Exception("No internet connection")
+        }
+        if (!IsApiAvailableNowService().execute(context)){
+            Log.d("LoginUseCase", "API is not available")
+            throw Exception("Api is not available")
+        }
         Log.d("LoginUseCase", "Iniciando login para o usuário: ${login.login}")
 
         val users = usersRepository.login(login)
