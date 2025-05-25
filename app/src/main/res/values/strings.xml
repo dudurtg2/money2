@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">money</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="n_o_tem_uma_conta_registre_se">Não tem uma conta? Registre-se!</string>
 </resources>

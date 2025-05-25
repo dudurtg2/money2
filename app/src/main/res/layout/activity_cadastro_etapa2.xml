@@ -1,0 +1,154 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Topo azul com botão voltar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_login"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/btnVoltar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_back_light"
+            android:contentDescription="Voltar" />
+
+        <!-- Forma branca com curva -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/fundo_login"
+            android:elevation="8dp"
+            />
+    </LinearLayout>
+
+    <!-- Conteúdo abaixo -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left">
+
+
+            <!-- Logo -->
+            <ImageView
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:src="@drawable/money_flow_logo"
+                android:tint="@color/primary"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                style="@style/Titles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registre-se"
+                android:textColor="@color/primary"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                style="@style/Sub_Titles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dados da conta"
+                android:textColor="@color/primary"
+                android:layout_marginBottom="40dp"/>
+
+            <!-- Campos -->
+            <EditText
+                style="@style/Main_Text"
+                android:id="@+id/etEmail"
+                android:hint="Email"
+                android:textColorHint="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edittext_selector"
+                android:padding="20dp"
+                android:layout_marginBottom="16dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    style="@style/Main_Text"
+                    android:id="@+id/etSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Senha"
+                    android:textColorHint="@color/primary"
+                    android:inputType="textPassword"
+                    android:background="@drawable/edittext_selector"
+                    android:padding="20dp" />
+
+                <ImageView
+                    android:id="@+id/ivToggleSenha"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/eye_close_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <EditText
+                    style="@style/Main_Text"
+                    android:id="@+id/etConfirmarSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Repetir senha"
+                    android:textColorHint="@color/primary"
+                    android:inputType="textPassword"
+                    android:background="@drawable/edittext_selector"
+                    android:padding="20dp" />
+
+                <ImageView
+                    android:id="@+id/ivToggleConfirmar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/eye_close_icon" />
+            </RelativeLayout>
+
+            <!-- Botão Próximo -->
+            <Button
+                style="@style/Sub_Titles"
+                android:id="@+id/btnCadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/primary"
+                android:textColor="@android:color/white"
+                android:padding="20dp"
+                android:background="@drawable/buttons"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

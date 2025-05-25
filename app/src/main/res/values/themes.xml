@@ -1,9 +1,42 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Money" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.MoneyFlowApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Money" parent="Base.Theme.Money" />
+    <style name="Titles">
+        <item name="android:fontFamily">@font/inria_sans_regular</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="Sub_Titles_BOLD">
+        <item name="android:fontFamily">@font/inria_sans_bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Sub_Titles">
+        <item name="android:fontFamily">@font/inria_sans_regular</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Main_Text">
+        <item name="android:fontFamily">@font/inria_sans_regular</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Sub_Main_Text">
+        <item name="android:fontFamily">@font/inria_sans_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
