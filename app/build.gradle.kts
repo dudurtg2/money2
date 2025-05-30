@@ -52,6 +52,8 @@ tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 dependencies {
+    implementation (libs.androidx.appcompat.v161)
+    implementation (libs.material.v190)
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("androidx.test:core:1.5.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")

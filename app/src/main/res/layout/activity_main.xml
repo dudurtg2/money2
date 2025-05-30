@@ -1,86 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     android:padding="16dp">
 
-    <!-- Usuário logado -->
-    <TextView
-        android:id="@+id/tvUser"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Usuário: –"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/main">
 
-    <!-- Resultado geral (ex.: lista ou registro) -->
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Resultado aparecerá aqui"
-        android:textSize="16sp"
-        android:padding="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/tvUser"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="wrap"
-        app:layout_constraintVertical_bias="0.0"/>
+        <!-- Usuário logado -->
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Usuário: –"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Salvar moeda -->
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Salvar Moeda"
-        app:layout_constraintTop_toBottomOf="@id/tvResult"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Resultado geral (ex.: lista ou registro) -->
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Resultado aparecerá aqui"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/tvUser"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Listar todas as moedas -->
-    <Button
-        android:id="@+id/buttonLoadAll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Listar Todas"
-        app:layout_constraintTop_toBottomOf="@id/buttonSave"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Salvar moeda -->
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Salvar Moeda"
+            app:layout_constraintTop_toBottomOf="@id/tvResult"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Buscar moeda por UUID -->
-    <Button
-        android:id="@+id/buttonLoadOne"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Buscar Moeda"
-        app:layout_constraintTop_toBottomOf="@id/buttonLoadAll"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <Button
-        android:id="@+id/buttonClearDb"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Zerar Banco"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        <!-- Listar todas as moedas -->
+        <Button
+            android:id="@+id/buttonLoadAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Listar Todas"
+            app:layout_constraintTop_toBottomOf="@id/buttonSave"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Login de usuário -->
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintTop_toBottomOf="@id/buttonLoadOne"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Buscar moeda por UUID -->
+        <Button
+            android:id="@+id/buttonLoadOne"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Buscar Moeda"
+            app:layout_constraintTop_toBottomOf="@id/buttonLoadAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Login de usuário -->
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            app:layout_constraintTop_toBottomOf="@id/buttonLoadOne"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Zerar Banco -->
+        <Button
+            android:id="@+id/buttonClearDb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Zerar Banco"
+            app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

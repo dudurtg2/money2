@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MovementsRetrofit {
-    private const val BASE_URL = "http://10.0.0.150:8080"
+    private const val BASE_URL = "http://10.0.0.150:8080/"
 
     fun create(context: Context): MovementsApi {
         val token = AuthenticateService.getToken(context)

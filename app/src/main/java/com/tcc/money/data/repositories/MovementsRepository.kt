@@ -1,6 +1,7 @@
 package com.tcc.money.data.repositories
 
 import android.content.Context
+import android.util.Log
 import com.tcc.money.data.Intefaces.IMovementsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
@@ -14,11 +15,14 @@ import java.util.UUID
 
 class MovementsRepository(context: Context) : IMovementsRepository {
     private val api = MovementsRetrofit.create(context)
-
-    override  fun save(movements: Movements): Movements {
+    private val TAG = "MovementsRepo"
+    override fun save(movements: Movements): Movements {
+        Log.d(TAG, "save() → enviando movimento: $movements")
         val response = api.save(movements).execute()
+        Log.d(TAG, "save() ← HTTP ${response.code()}")
         if (response.isSuccessful) {
-            val json = response.body()?.string()
+            val json = response.body()?.string().orEmpty()
+            Log.d(TAG, "save() ← body: $json")
             val jsonObject = JSONObject(json)
             val coinsObject = jsonObject.getJSONObject("coins")
             return Movements(
@@ -29,13 +33,14 @@ class MovementsRepository(context: Context) : IMovementsRepository {
                     name = coinsObject.getString("name"),
                     symbol = coinsObject.getString("symbol"),
                     image = coinsObject.getString("image"),
-                    uuid =  UUID.fromString(jsonObject.getString("uuid"))
+                    uuid = UUID.fromString(coinsObject.getString("uuid"))
                 ),
                 typeCoins = TypeCoins.valueOf(jsonObject.getString("typeCoins")),
-                uuid =  UUID.fromString(jsonObject.getString("uuid"))
+                uuid = UUID.fromString(jsonObject.getString("uuid"))
             )
         } else {
-            throw Exception("Erro no login: ${response.code()}")
+            Log.e(TAG, "save() Erro HTTP: ${response.code()} - ${response.errorBody()?.string()}")
+            throw Exception("Erro ao salvar movimento: ${response.code()}")
         }
     }
 
