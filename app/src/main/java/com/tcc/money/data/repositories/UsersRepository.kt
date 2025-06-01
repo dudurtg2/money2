@@ -56,6 +56,11 @@ class UsersRepository(context: Context) : IUsersRepository {
         TODO("Not yet implemented")
     }
 
+    override fun online(): Boolean {
+        return api.online().execute()
+            .isSuccessful
+    }
+
     override fun login(login: Login): Users {
         Log.d("UsersRepository", "Iniciando login para: ${login.login}")
         val response = api.login(login).execute()

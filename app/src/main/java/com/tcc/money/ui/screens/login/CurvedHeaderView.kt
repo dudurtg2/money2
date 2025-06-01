@@ -12,14 +12,14 @@ class CurvedHeaderView @JvmOverloads constructor(
 ) : View(context, attrs, defStyle) {
 
     private val paint = Paint().apply {
-        color = Color.WHITE // cor da curva
+        color = Color.WHITE
         style = Paint.Style.FILL
         isAntiAlias = true
-        setShadowLayer(20f, 0f, 10f, Color.argb(80, 0, 0, 0)) // sombra
+        setShadowLayer(20f, 0f, 10f, Color.argb(80, 0, 0, 0))
     }
 
     init {
-        setLayerType(LAYER_TYPE_SOFTWARE, paint) // necessário pra sombra funcionar
+        setLayerType(LAYER_TYPE_SOFTWARE, paint)
     }
 
     override fun onDraw(canvas: Canvas) {

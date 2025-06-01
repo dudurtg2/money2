@@ -21,7 +21,7 @@ interface MovementsApi {
         @Path("uuid") uuid: UUID
     ): Call<ResponseBody>
 
-    @POST("api/movements/save")
+    @POST("api/movements/create")
     fun save(
         @Body movements: Movements
     ): Call<ResponseBody>

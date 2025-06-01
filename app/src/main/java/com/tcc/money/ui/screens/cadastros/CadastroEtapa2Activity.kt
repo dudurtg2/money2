@@ -6,47 +6,47 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.R
+import com.tcc.money.databinding.ActivityCadastroEtapa1Binding
+import com.tcc.money.databinding.ActivityCadastroEtapa2Binding
 
 class CadastroEtapa2Activity : AppCompatActivity() {
     private var senhaVisivel = false
     private var confirmarVisivel = false
+    private lateinit var binding: ActivityCadastroEtapa2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro_etapa2)
+        enableEdgeToEdge()
+        binding = ActivityCadastroEtapa2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val etSenha = findViewById<EditText>(R.id.etSenha)
-        val etConfirmar = findViewById<EditText>(R.id.etConfirmarSenha)
-        val ivOlhoSenha = findViewById<ImageView>(R.id.ivToggleSenha)
-        val ivOlhoConfirmar = findViewById<ImageView>(R.id.ivToggleConfirmar)
-        val btnVoltar = findViewById<ImageButton>(R.id.btnVoltar)
-        val btnCadastrar = findViewById<Button>(R.id.btnCadastrar)
 
-        ivOlhoSenha.setOnClickListener {
+        binding.ivToggleSenha.setOnClickListener {
             senhaVisivel = !senhaVisivel
-            etSenha.inputType = if (senhaVisivel)
+            binding.etSenha.inputType = if (senhaVisivel)
                 InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             else
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            etSenha.setSelection(etSenha.text.length)
+            binding.etSenha.setSelection(binding.etSenha.text.length)
         }
 
-        ivOlhoConfirmar.setOnClickListener {
+        binding.ivToggleConfirmar.setOnClickListener {
             confirmarVisivel = !confirmarVisivel
-            etConfirmar.inputType = if (confirmarVisivel)
+            binding.etConfirmarSenha.inputType = if (confirmarVisivel)
                 InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             else
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            etConfirmar.setSelection(etConfirmar.text.length)
+            binding.etConfirmarSenha.setSelection(binding.etConfirmarSenha.text.length)
         }
 
-        btnVoltar.setOnClickListener {
+        binding.btnVoltar.setOnClickListener {
             finish()
         }
 
-        btnCadastrar.setOnClickListener {
+        binding.btnCadastrar.setOnClickListener {
             // Aqui você pode só exibir um Toast ou redirecionar pra Home futuramente
         }
     }

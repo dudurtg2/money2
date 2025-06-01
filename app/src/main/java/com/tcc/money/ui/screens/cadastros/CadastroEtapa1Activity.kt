@@ -4,25 +4,26 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.R
+import com.tcc.money.databinding.ActivityCadastroEtapa1Binding
 
 class CadastroEtapa1Activity : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
+    private lateinit var binding: ActivityCadastroEtapa1Binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro_etapa1)
+        enableEdgeToEdge()
+        binding = ActivityCadastroEtapa1Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnProximo = findViewById<Button>(R.id.btnProximo)
-        val btnVoltar = findViewById<Button>(R.id.btnVoltar)
-
-        btnProximo.setOnClickListener {
+        binding.btnProximo.setOnClickListener {
             val intent = Intent(this, CadastroEtapa2Activity::class.java)
            startActivity(intent)
         }
-
-        btnVoltar.setOnClickListener {
-            finish() // volta pra tela anterior
+        binding.btnVoltar.setOnClickListener {
+            finish()
         }
     }
 }

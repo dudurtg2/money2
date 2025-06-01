@@ -13,14 +13,20 @@ import com.tcc.money.data.applications.LoginUseCase
 import com.tcc.money.databinding.ActivityMainBinding
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.applications.save.SaveCoinsUseCase
+import com.tcc.money.data.applications.save.SaveMovementsUseCase
 import com.tcc.money.data.dto.Login
+import com.tcc.money.data.models.Movements
 import com.tcc.money.data.models.Users
 import com.tcc.money.data.repositories.CoinsRepository
+import com.tcc.money.data.repositories.MovementsRepository
 import com.tcc.money.database.DataBase
+import com.tcc.money.utils.enums.TypeCoins
 import com.tcc.money.utils.mapper.CoinsMapper
+import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
 import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
@@ -31,6 +37,18 @@ class HomeActivity : AppCompatActivity() {
     private val coinsDao        by lazy { DataBase.getDatabase(this).coinsDao() }
     private val checkPremium    by lazy { CheckPremiumAccountUseCase(this) }
     private val coinsMapper     by lazy { CoinsMapper() }
+    private val movementsRepository by lazy { MovementsRepository(this) }
+    private val movementsDao by lazy { DataBase.getDatabase(this).movementsDao() }
+    private val movementsMapper by lazy { MovementsMapper() }
+
+    private val saveMovementsUseCase by lazy {
+        SaveMovementsUseCase(
+            repository     = movementsRepository,
+            dao            = movementsDao,
+            checkPremium   = checkPremium,
+            mapper         = movementsMapper
+        )
+    }
 
     // 2) Injeta tudo no construtor do use case
     private val saveCoinsUseCase by lazy {
@@ -88,16 +106,25 @@ class HomeActivity : AppCompatActivity() {
         binding.buttonSave.setOnClickListener {
             lifecycleScope.launch {
                 runCatching {
-                    val newCoin = createTestCoins()
-                    saveCoinsUseCase.execute(newCoin)
-                }.onSuccess { saved ->
-                    binding.tvResult.text = "Salvo: $saved"
+                    // 1) Cria e salva a moeda (se ainda precisar dela para referenciar no movimento).
+                    // 2) Cria e salva apenas o movimento, usando a coin salva.
+                    val newMovement = createTestMovements(createTestCoins())
+                    saveMovementsUseCase.execute(newMovement) // retorna o objeto Movements salvo
+                }.onSuccess { movement ->
+                    // Só grava o movimento no TextView
+                    binding.tvResult.text = buildString {
+                        append("Movimento salvo:\n$movement")
+                    }
+                    Toast.makeText(this@HomeActivity, "Movimento salvo com sucesso!", Toast.LENGTH_SHORT).show()
                 }.onFailure { e ->
-                    Log.e("APImoney", "Erro ao salvar: ${e.message}")
-                    Toast.makeText(this@HomeActivity, "Erro ao salvar: ${e.message}", LENGTH_SHORT).show()
+                    Log.e("APImoney", "Erro ao salvar movement: ${e.message}", e)
+                    binding.tvResult.text = "Falha ao salvar movimento: ${e.message}"
+                    Toast.makeText(this@HomeActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+
 
         binding.buttonLoadAll.setOnClickListener {
             loadAllCoins()
@@ -110,13 +137,13 @@ class HomeActivity : AppCompatActivity() {
                     findCoinsUseCase.executeById(uuid)
                 }.onSuccess { coin ->
                     binding.tvResult.text = "Encontrado: $coin"
+
                 }.onFailure { e ->
                     Toast.makeText(this@HomeActivity, "Erro ao buscar: ${e.message}", LENGTH_SHORT).show()
                 }
             }
         }
 
-        // login de usuário
         binding.buttonLogin.setOnClickListener {
             lifecycleScope.launch {
                 runCatching { login() }
@@ -148,10 +175,22 @@ class HomeActivity : AppCompatActivity() {
     private suspend fun createTestCoins(): Coins {
         return Coins(
                 name = "BTC",
-                uuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000"),
+                uuid = UUID.fromString("ce051108-5715-42f1-b17b-3954a2ae9721"),
                 image = "a",
                 symbol = "BTC"
             )
+
+    }
+
+    private suspend fun createTestMovements(coins: Coins): Movements {
+        return Movements(
+            typeCoins = TypeCoins.CRIPTO,
+            coins = coins,
+            date = LocalDateTime.now(),
+            price = 123.12f,
+            uuid = UUID.randomUUID(),
+            value = 10.1f
+        )
 
     }
 
