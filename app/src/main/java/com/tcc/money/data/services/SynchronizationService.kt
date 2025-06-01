@@ -22,12 +22,13 @@ class SynchronizationService(context: Context) {
     private val isNetworkAvailableService = NetworkIsConnectedService().isConnected(context)
     private val coinsDao = db.coinsDao()
     private val movementsDao = db.movementsDao()
+    private val refreshTokenService = RefreshTokenService(context)
     private val coinsRepository = CoinsRepository(context)
     private val movementsRepository = MovementsRepository(context)
 
 
     suspend fun execute(): Boolean = withContext(Dispatchers.IO) {
-
+        refreshTokenService.execute()
         if (!isNetworkAvailableService) {
             return@withContext false
         }

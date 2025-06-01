@@ -106,34 +106,24 @@ class HomeActivity : AppCompatActivity() {
         binding.buttonSave.setOnClickListener {
             lifecycleScope.launch {
                 runCatching {
-                    // 1) Cria e salva a moeda
-                    val newCoin = createTestCoins()
-                    val savedCoin = saveCoinsUseCase.execute(newCoin)
-
-                    // 2) Com a moeda salva, cria e salva o movimento
-                    val newMovement = createTestMovements(savedCoin)
+                    // 1) Cria e salva a moeda (se ainda precisar dela para referenciar no movimento).
+                    // 2) Cria e salva apenas o movimento, usando a coin salva.
+                    val newMovement = createTestMovements(createTestCoins())
+                    saveMovementsUseCase.execute(newMovement) // retorna o objeto Movements salvo
+                }.onSuccess { movement ->
+                    // Só grava o movimento no TextView
                     binding.tvResult.text = buildString {
-                        append("Moeda salva:\n$newCoin\n\n")
-                        append("Movimento salvo:\n$newMovement")
-                    }
-                    val savedMovement = saveMovementsUseCase.execute(newMovement)
-
-                    // 3) Retorna ambos pra exibirmos na UI
-                    Pair(savedCoin, savedMovement)
-                }.onSuccess { (coin, movement) ->
-                    // escrevo ambos no TextView
-                    binding.tvResult.text = buildString {
-                        append("Moeda salva:\n$coin\n\n")
                         append("Movimento salvo:\n$movement")
                     }
-                    Toast.makeText(this@HomeActivity, "Tudo salvo com sucesso!", LENGTH_SHORT).show()
+                    Toast.makeText(this@HomeActivity, "Movimento salvo com sucesso!", Toast.LENGTH_SHORT).show()
                 }.onFailure { e ->
-                    Log.e("APImoney", "Erro ao salvar: ${e.message}")
-                    binding.tvResult.text = "Falha ao salvar: ${e.message}"
-                    Toast.makeText(this@HomeActivity, "Erro: ${e.message}", LENGTH_SHORT).show()
+                    Log.e("APImoney", "Erro ao salvar movement: ${e.message}", e)
+                    binding.tvResult.text = "Falha ao salvar movimento: ${e.message}"
+                    Toast.makeText(this@HomeActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
 
 
         binding.buttonLoadAll.setOnClickListener {
@@ -185,7 +175,7 @@ class HomeActivity : AppCompatActivity() {
     private suspend fun createTestCoins(): Coins {
         return Coins(
                 name = "BTC",
-                uuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000"),
+                uuid = UUID.fromString("ce051108-5715-42f1-b17b-3954a2ae9721"),
                 image = "a",
                 symbol = "BTC"
             )

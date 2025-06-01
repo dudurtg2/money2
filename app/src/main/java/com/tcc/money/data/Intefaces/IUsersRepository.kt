@@ -10,4 +10,5 @@ interface IUsersRepository {
      fun refreshToken()
      fun check(): TypeAccount
      fun logout()
+     fun online(): Boolean
 }

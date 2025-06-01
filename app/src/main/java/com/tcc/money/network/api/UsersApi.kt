@@ -1,13 +1,7 @@
 package com.tcc.money.network.api
-
-import com.tcc.money.data.Intefaces.ICoinsRepository
-import com.tcc.money.data.Intefaces.IUsersRepository
 import com.tcc.money.data.dto.Login
-import com.tcc.money.data.models.Coins
-import com.tcc.money.data.models.Movements
 import com.tcc.money.data.models.Users
 import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -29,4 +23,8 @@ interface UsersApi{
 
     @PUT("api/users/update")
      fun update(@Body users: Users): Call<ResponseBody>
+
+     @GET("api/user/online")
+     fun online(): Call<ResponseBody>
+
 }
