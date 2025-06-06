@@ -10,8 +10,9 @@ import com.tcc.money.utils.mapper.MovementsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import javax.inject.Inject
 
-class UpdateMovementsUseCase(
+class UpdateMovementsUseCase @Inject constructor(
     private val repository: MovementsRepository,
     private val dao: MovementsDao,
     private val checkPremium: CheckPremiumAccountUseCase,

@@ -11,24 +11,30 @@ import kotlinx.coroutines.withContext
 import android.util.Log
 import com.tcc.money.data.services.IsApiAvailableNowService
 import com.tcc.money.data.services.NetworkIsConnectedService
+import com.tcc.money.database.dao.UsersDao
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class LoginUseCase(context: Context) {
-    private val db = DataBase.getDatabase(context)
-    private val usersRepository = UsersRepository(context)
-    private val usersMapper = UsersMapper()
-    private val usersDao = db.usersDao()
-    private val context = context
-
+class LoginUseCase @Inject constructor(
+    private val usersRepository: UsersRepository,
+    private val usersMapper: UsersMapper,
+    private val usersDao: UsersDao,
+    private val networkIsConnectedService: NetworkIsConnectedService,
+    private val isApiAvailableNowService: IsApiAvailableNowService,
+    @ApplicationContext private val context: Context
+) {
     suspend fun execute(login: Login): Users = withContext(Dispatchers.IO) {
 
-        if(!NetworkIsConnectedService().isConnected(context)){
-            Log.d("LoginUseCase", "Network is n connected")
+        if (!networkIsConnectedService.isConnected(context)) {
+            Log.d("LoginUseCase", "Network is not connected")
             throw Exception("No internet connection")
         }
-        if (!IsApiAvailableNowService().execute(context)){
+
+        if (!isApiAvailableNowService.execute(context)) {
             Log.d("LoginUseCase", "API is not available")
-            throw Exception("Api is not available")
+            throw Exception("API is not available")
         }
+
         Log.d("LoginUseCase", "Iniciando login para o usuário: ${login.login}")
 
         val users = usersRepository.login(login)
@@ -36,9 +42,7 @@ class LoginUseCase(context: Context) {
 
         val entity = usersMapper.toUsersEntity(users)
         Log.d("LoginUseCase", "Usuário salvo no banco local: ${entity.uuid}")
-
         usersDao.save(entity)
-
 
         val usersEntity = usersDao.findByUUID(users.uuid)
         Log.d("LoginUseCase", "Usuário recuperado do banco local: ${usersEntity.uuid}")
@@ -51,7 +55,7 @@ class LoginUseCase(context: Context) {
                 "LoginUseCase",
                 "UUID divergente! users.uuid=${users.uuid}, usersEntity.uuid=${usersEntity.uuid}"
             )
-            throw Exception("Erro no login: nome divergente")
+            throw Exception("Erro no login: UUID divergente")
         }
     }
 }

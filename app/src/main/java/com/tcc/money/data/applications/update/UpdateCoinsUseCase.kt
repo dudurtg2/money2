@@ -8,8 +8,9 @@ import com.tcc.money.utils.mapper.CoinsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import javax.inject.Inject
 
-class UpdateCoinsUseCase(
+class UpdateCoinsUseCase @Inject constructor(
     private val repository: CoinsRepository,
     private val dao: CoinsDao,
     private val checkPremium: CheckPremiumAccountUseCase,

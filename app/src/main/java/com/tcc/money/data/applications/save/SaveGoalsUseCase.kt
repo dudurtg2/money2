@@ -8,8 +8,9 @@ import com.tcc.money.utils.mapper.GoalsMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import javax.inject.Inject
 
-class SaveGoalsUseCase(
+class SaveGoalsUseCase @Inject constructor(
     private val repository: GoalsRepository,
     private val dao: GoalsDao,
     private val checkPremium: CheckPremiumAccountUseCase,

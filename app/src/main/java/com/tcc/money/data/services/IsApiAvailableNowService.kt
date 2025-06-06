@@ -7,11 +7,14 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class IsApiAvailableNowService(
-    private val baseUrl: String = "http://10.0.0.150:8080/api/user/online"
+@Singleton
+class IsApiAvailableNowService@Inject constructor(
+
 ) {
-
+    private val baseUrl: String = "http://10.0.0.150:8080/api/user/online"
     private val httpLogger = HttpLoggingInterceptor { message ->
 
     }.apply {

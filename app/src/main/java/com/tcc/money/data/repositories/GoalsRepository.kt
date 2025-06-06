@@ -1,23 +1,18 @@
 package com.tcc.money.data.repositories
 
-import android.content.Context
 import com.tcc.money.data.Intefaces.IGoalsRepository
-import com.tcc.money.data.Intefaces.IMovementsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Goals
-import com.tcc.money.data.models.Movements
-import com.tcc.money.network.retrofit.CoinsRetrofit
-import com.tcc.money.network.retrofit.GoalsRetrofit
-import com.tcc.money.network.retrofit.MovementsRetrofit
-import com.tcc.money.utils.enums.TypeCoins
+import com.tcc.money.network.api.GoalsApi
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.UUID
+import javax.inject.Inject
 
-class GoalsRepository(context: Context) : IGoalsRepository {
-    private val api = GoalsRetrofit.create(context)
+class GoalsRepository@Inject constructor(
+    private val api: GoalsApi
+) : IGoalsRepository {
 
     override  fun save(goals: Goals): Goals {
         val response = api.save(goals).execute()
