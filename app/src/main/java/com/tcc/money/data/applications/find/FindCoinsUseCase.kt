@@ -7,23 +7,26 @@ import com.tcc.money.data.repositories.CoinsRepository
 import com.tcc.money.data.services.SynchronizationService
 import com.tcc.money.database.dao.CoinsDao
 import com.tcc.money.utils.mapper.CoinsMapper
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import javax.inject.Inject
 
-class FindCoinsUseCase(
+class FindCoinsUseCase @Inject constructor(
     private val repository: CoinsRepository,
     private val dao: CoinsDao,
     private val checkPremium: CheckPremiumAccountUseCase,
     private val mapper: CoinsMapper,
-    private val context: Context
+    private val synchronizationService: SynchronizationService,
+   @ApplicationContext private val context: Context
 ) {
 
     suspend fun executeAll(): List<Coins> = withContext(Dispatchers.IO) {
 
         val isPremium = checkPremium.execute()
         if (isPremium) {
-            SynchronizationService(context).execute()
+            synchronizationService.execute()
             val remoteList = repository.findAll()
             val entities = mapper.toCoinsEntityList(remoteList)
                 .onEach { it.sync = true }
@@ -37,7 +40,7 @@ class FindCoinsUseCase(
     suspend fun executeById(uuid: UUID): Coins = withContext(Dispatchers.IO) {
         val isPremium = checkPremium.execute()
         if (isPremium) {
-            SynchronizationService(context).execute()
+            synchronizationService.execute()
             val remote = repository.findByUUID(uuid)
             val entity = mapper.toCoinsEntity(remote).apply { sync = true }
             dao.save(entity)

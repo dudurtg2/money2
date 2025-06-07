@@ -1,20 +1,21 @@
 package com.tcc.money.data.repositories
 
-import android.content.Context
 import android.util.Log
 import com.tcc.money.data.Intefaces.IMovementsRepository
 import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Movements
-import com.tcc.money.network.retrofit.CoinsRetrofit
-import com.tcc.money.network.retrofit.MovementsRetrofit
+import com.tcc.money.network.api.MovementsApi
 import com.tcc.money.utils.enums.TypeCoins
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDateTime
 import java.util.UUID
+import javax.inject.Inject
 
-class MovementsRepository(context: Context) : IMovementsRepository {
-    private val api = MovementsRetrofit.create(context)
+class MovementsRepository@Inject constructor(
+    private val api: MovementsApi
+) : IMovementsRepository {
+
     private val TAG = "MovementsRepo"
     override fun save(movements: Movements): Movements {
         Log.d(TAG, "save() → enviando movimento: $movements")

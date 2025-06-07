@@ -2,9 +2,12 @@ package com.tcc.money.utils.mapper
 
 import com.tcc.money.data.models.Coins
 import com.tcc.money.database.entities.CoinsEntity
-import org.mapstruct.Mapper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CoinsMapper {
+
+@Singleton
+class CoinsMapper @Inject constructor(){
 
     fun toCoins(entity: CoinsEntity): Coins {
         return Coins(

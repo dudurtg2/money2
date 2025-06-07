@@ -11,5 +11,5 @@ data class MovementWithCoins(
         parentColumn   = "coins_uuid",
         entityColumn   = "uuid"
     )
-    val coin: CoinsEntity    // carrega os dados da moeda relacionada
+    val coin: CoinsEntity
 )

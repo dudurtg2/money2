@@ -4,14 +4,12 @@ import android.content.Context
 import com.tcc.money.data.models.Users
 import com.tcc.money.data.repositories.UsersRepository
 import com.tcc.money.database.DataBase
+import javax.inject.Inject
 
-class UpdateUsersUseCase(context: Context) {
-    private val usersRepository = UsersRepository(context)
-    private val usersDao = DataBase.getDatabase(context).usersDao()
-
-
-     fun execute(users: Users): Users {
+class UpdateUsersUseCase @Inject constructor(
+    private val usersRepository: UsersRepository
+) {
+    fun execute(users: Users): Users {
         return usersRepository.update(users)
     }
-
 }

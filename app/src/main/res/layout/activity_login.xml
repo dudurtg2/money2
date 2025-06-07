@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,19 +15,17 @@
         android:gravity="bottom">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/money_flow_logo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="24dp"
             android:layout_marginBottom="50dp"
-            android:layout_marginLeft="24dp" />
+            android:background="@drawable/money_flow_logo" />
 
-        <!-- Forma branca com curva -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="13dp"
             android:background="@drawable/fundo_login"
-            android:elevation="8dp"/>
-
+            android:elevation="8dp" />
     </LinearLayout>
 
     <!-- Conteúdo abaixo -->
@@ -37,16 +36,31 @@
         android:padding="24dp"
         android:background="@color/white">
 
-        <!-- campos aqui -->
-        <TextView
+        <!-- Título "Login" com progress ao lado -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/login"
-            style="@style/Titles"
-            android:textColor="@color/primary"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
 
+            <TextView
+                style="@style/Titles"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/login"
+                android:textColor="@color/primary" />
 
+            <ProgressBar
+                android:id="@+id/progressBarLogin"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Campo de E-mail -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -60,6 +74,7 @@
             android:drawablePadding="8dp"
             android:layout_marginBottom="16dp" />
 
+        <!-- Campo de Senha com toggle -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,8 +90,7 @@
                 android:inputType="textPassword"
                 android:background="@drawable/edittext_selector"
                 android:padding="20dp"
-                android:drawablePadding="8dp"
-                android:layout_alignParentStart="true"/>
+                android:drawablePadding="8dp"/>
 
             <ImageView
                 android:id="@+id/ivTogglePassword"
@@ -89,7 +103,6 @@
         </RelativeLayout>
 
         <!-- Botão de Entrar -->
-
         <Button
             style="@style/Sub_Titles"
             android:id="@+id/btnLogin"
@@ -101,6 +114,7 @@
             android:padding="20dp"
             android:background="@drawable/buttons" />
 
+        <!-- Link para criar conta -->
         <TextView
             style="@style/Main_Text"
             android:id="@+id/tvCriarConta"

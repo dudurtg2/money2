@@ -8,14 +8,17 @@ import com.tcc.money.data.services.NetworkIsConnectedService
 import com.tcc.money.data.services.SynchronizationService
 
 import com.tcc.money.utils.enums.TypeAccount
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-class CheckPremiumAccountUseCase(context: Context) {
-    private val usersRepository = UsersRepository(context)
-    private val context = context
-     fun execute(): Boolean {
-
-        if (!IsApiAvailableNowService().execute(context)){
+class CheckPremiumAccountUseCase @Inject constructor(
+    private val usersRepository: UsersRepository,
+    private val isApiAvailableNowService: IsApiAvailableNowService,
+    @ApplicationContext private val context: Context
+) {
+    suspend fun execute(): Boolean {
+        if (!isApiAvailableNowService.execute(context)) {
             Log.d("APImoney", "API is not available")
             return false
         }

@@ -2,10 +2,11 @@ package com.tcc.money.utils.mapper
 
 import com.tcc.money.data.models.Movements
 import com.tcc.money.database.entities.MovementsEntity
-import org.mapstruct.Mapper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class MovementsMapper {
+@Singleton
+class MovementsMapper @Inject constructor() {
     private val coinsMapper = CoinsMapper()
     fun toMovements(entity: MovementsEntity): Movements {
         return Movements(

@@ -2,10 +2,11 @@ package com.tcc.money.utils.mapper
 
 import com.tcc.money.data.models.Users
 import com.tcc.money.database.entities.UsersEntity
-import org.mapstruct.Mapper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class UsersMapper {
+@Singleton
+class UsersMapper @Inject constructor(){
 
     fun toUsers(entity: UsersEntity): Users {
         return Users(

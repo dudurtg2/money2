@@ -1,12 +1,12 @@
 package com.tcc.money.utils.mapper
 
-import com.tcc.money.data.models.Coins
 import com.tcc.money.data.models.Goals
-import com.tcc.money.database.entities.CoinsEntity
 import com.tcc.money.database.entities.GoalsEntity
-import org.mapstruct.Mapper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class GoalsMapper {
+@Singleton
+class GoalsMapper @Inject constructor(){
     private val coinsMapper = CoinsMapper()
     fun toGoals(entity: GoalsEntity): Goals {
         return Goals(

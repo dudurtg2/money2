@@ -4,9 +4,11 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NetworkIsConnectedService {
-
+@Singleton
+class NetworkIsConnectedService @Inject constructor() {
 
     private fun Context.isNetworkAvailable(): Boolean {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
@@ -25,6 +27,7 @@ class NetworkIsConnectedService {
             cm.activeNetworkInfo?.isConnected ?: false
         }
     }
+
     fun isConnected(context: Context): Boolean =
         context.isNetworkAvailable()
 }
