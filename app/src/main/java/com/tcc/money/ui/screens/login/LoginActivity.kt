@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.tcc.money.R
 import com.tcc.money.data.applications.LoginUseCase
 import com.tcc.money.data.dto.Login
+import com.tcc.money.data.services.AuthenticateService
+import com.tcc.money.data.services.IsApiAvailableNowService
 import com.tcc.money.databinding.ActivityLoginBinding
 import com.tcc.money.ui.screens.cadastros.CadastroEtapa1Activity
 import com.tcc.money.ui.screens.home.HomeActivity
@@ -35,7 +37,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupListeners()
+
     }
+
+
 
     private fun setupListeners() {
         binding.tvCriarConta.setOnClickListener {
@@ -71,7 +76,8 @@ class LoginActivity : AppCompatActivity() {
             binding.etSenha.transformationMethod = null
             binding.ivTogglePassword.setImageResource(R.drawable.eye_open_icon)
         } else {
-            binding.etSenha.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+            binding.etSenha.transformationMethod =
+                android.text.method.PasswordTransformationMethod.getInstance()
             binding.ivTogglePassword.setImageResource(R.drawable.eye_close_icon)
         }
         binding.etSenha.setSelection(binding.etSenha.text?.length ?: 0)

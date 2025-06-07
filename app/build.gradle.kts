@@ -23,6 +23,9 @@ android {
         versionCode           = 1
         versionName           = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -44,11 +47,20 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
             all { it.useJUnitPlatform() }
+        }
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
@@ -59,7 +71,18 @@ kapt {
 
 dependencies {
     // Dagger-Hilt
-    implementation(libs.hilt.android) // com.google.dagger:hilt-android:2.44
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest) // com.google.dagger:hilt-android:2.44
     kapt        (libs.hilt.compiler)  // com.google.dagger:hilt-compiler:2.44
 
     // Room (usando KSP para annotation processing)
@@ -69,6 +92,7 @@ dependencies {
 
     // Demais dependências (Retrofit, Gson, OkHttp, etc.)
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation ("com.google.crypto.tink:tink-android:1.17.0")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation(libs.retrofit2.retrofit)     // com.squareup.retrofit2:retrofit:2.9.0

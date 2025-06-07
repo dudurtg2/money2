@@ -17,7 +17,7 @@ class CheckPremiumAccountUseCase @Inject constructor(
     private val isApiAvailableNowService: IsApiAvailableNowService,
     @ApplicationContext private val context: Context
 ) {
-    fun execute(): Boolean {
+    suspend fun execute(): Boolean {
         if (!isApiAvailableNowService.execute(context)) {
             Log.d("APImoney", "API is not available")
             return false

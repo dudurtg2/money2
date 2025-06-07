@@ -30,10 +30,6 @@ class LoginUseCase @Inject constructor(
             throw Exception("No internet connection")
         }
 
-        if (!isApiAvailableNowService.execute(context)) {
-            Log.d("LoginUseCase", "API is not available")
-            throw Exception("API is not available")
-        }
 
         Log.d("LoginUseCase", "Iniciando login para o usuário: ${login.login}")
 
