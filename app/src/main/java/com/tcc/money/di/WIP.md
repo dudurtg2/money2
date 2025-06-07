@@ -1,1 +1,0 @@
-Injeção de dependência (se usar Hilt, Koin, etc.)

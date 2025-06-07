@@ -1,5 +1,6 @@
 package com.tcc.money.ui.screens.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.tcc.money.data.applications.save.SaveMovementsUseCase
 import com.tcc.money.databinding.ActivityMainBinding
 import com.tcc.money.data.models.Movements
 import com.tcc.money.data.models.Users
+import com.tcc.money.ui.screens.login.LoginActivity
 import com.tcc.money.utils.enums.TypeCoins
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +52,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // ativa o edge‐to‐edge (opcional)
         enableEdgeToEdge()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -58,16 +59,13 @@ class HomeActivity : AppCompatActivity() {
 
         setupListeners()
 
-        // opcional: carrega todas as moedas ao abrir
         loadAllCoins()
     }
 
     private fun setupListeners() {
-        // 1) Botão para limpar o banco de dados
         binding.buttonClearDb.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    // clearAllTables() faz parte do seu DataBase
                     com.tcc.money.database.DataBase
                         .getDatabase(this@HomeActivity)
                         .clearAllTables()
@@ -80,13 +78,10 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // 2) Botão para salvar movimento de teste
         binding.buttonSave.setOnClickListener {
             lifecycleScope.launch {
                 runCatching {
-                    // cria a moeda de teste
                     val newMovement = createTestMovements(createTestCoins())
-                    // salva o movimento via UseCase
                     saveMovementsUseCase.execute(newMovement)
                 }.onSuccess { movement ->
                     // exibe resultado na UI
@@ -186,9 +181,11 @@ class HomeActivity : AppCompatActivity() {
     )
 
     // Executa o login de teste e retorna um Users
-    private suspend fun login(): Users {
-        return loginUseCase.execute(
-            com.tcc.money.data.dto.Login("ana.souza2@example.com", "senhaSegura123")
-        )
+    private suspend fun login() {
+
+        loginUseCase.logouf()
+        startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
+        finish()
+
     }
 }

@@ -1,1 +1,0 @@
-Modelos de dados (ex: User.kt, Product.kt)

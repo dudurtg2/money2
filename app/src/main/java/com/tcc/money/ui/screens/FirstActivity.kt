@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import com.tcc.money.data.services.IsApiAvailableNowService
-import com.tcc.money.data.services.SynchronizationService
 import com.tcc.money.databinding.ActivityFirstBinding
 import com.tcc.money.ui.screens.home.HomeActivity
 import com.tcc.money.ui.screens.login.LoginActivity
@@ -35,7 +34,6 @@ class FirstActivity : ComponentActivity() {
                 startActivity(Intent(this@FirstActivity, HomeActivity::class.java))
                 finish()
             } else {
-
                 startActivity(Intent(this@FirstActivity, LoginActivity::class.java))
                 finish()
             }

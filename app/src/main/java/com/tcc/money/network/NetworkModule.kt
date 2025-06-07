@@ -1,6 +1,5 @@
 
-package com.tcc.money.network.retrofit
-// NetworkModule.kt (Hilt)
+package com.tcc.money.network
 
 import android.content.Context
 import com.tcc.money.data.services.AuthenticateService
@@ -27,7 +26,6 @@ object NetworkModule {
 
     private const val BASE_URL = "http://10.0.0.150:8080/"
 
-    // 1) Interceptor que injeta o token no header
     @Provides
     @Singleton
     fun provideAuthInterceptor(
@@ -41,7 +39,6 @@ object NetworkModule {
         chain.proceed(request)
     }
 
-    // 2) Logging HTTP (opcional)
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -50,7 +47,6 @@ object NetworkModule {
         return logger
     }
 
-    // 3) OkHttpClient com interceptores
     @Provides
     @Singleton
     fun provideOkHttpClient(
@@ -63,7 +59,6 @@ object NetworkModule {
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
-    // 4) Retrofit genérico
     @Provides
     @Singleton
     fun provideRetrofit(
@@ -74,25 +69,21 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    // 5) CoinsApi
     @Provides
     @Singleton
     fun provideCoinsApi(retrofit: Retrofit): CoinsApi =
         retrofit.create(CoinsApi::class.java)
 
-    // 6) GoalsApi
     @Provides
     @Singleton
     fun provideGoalsApi(retrofit: Retrofit): GoalsApi =
         retrofit.create(GoalsApi::class.java)
 
-    // 7) MovementsApi
     @Provides
     @Singleton
     fun provideMovementsApi(retrofit: Retrofit): MovementsApi =
         retrofit.create(MovementsApi::class.java)
 
-    // 8) UsersApi
     @Provides
     @Singleton
     fun provideUsersApi(retrofit: Retrofit): UsersApi =

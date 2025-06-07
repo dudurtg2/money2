@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <!-- Fundo azul no topo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +20,5 @@
             android:background="@drawable/money_flow_logo" />
 
     </LinearLayout>
-
-    <!-- Conteúdo abaixo -->
 
 </LinearLayout>

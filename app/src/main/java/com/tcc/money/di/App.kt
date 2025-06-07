@@ -1,4 +1,3 @@
-// App.kt
 package com.tcc.money.di
 
 import android.app.Application

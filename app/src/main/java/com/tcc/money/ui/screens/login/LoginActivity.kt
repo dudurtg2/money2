@@ -37,10 +37,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupListeners()
-
     }
-
-
 
     private fun setupListeners() {
         binding.tvCriarConta.setOnClickListener {
@@ -52,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
+            binding.progressBarLogin.visibility = android.view.View.VISIBLE
             lifecycleScope.launch {
                 runCatching { login() }
                     .onSuccess {
@@ -60,11 +58,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                     .onFailure { e ->
                         Log.e("LoginUseCase", "Erro no login: ${e.message}")
+
                         Toast.makeText(
                             this@LoginActivity,
-                            "Verifique o e-mail e/ou senha",
+                            "Erro no login: ${e.message}",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.progressBarLogin.visibility = android.view.View.GONE
                     }
             }
         }

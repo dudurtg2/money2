@@ -1,4 +1,5 @@
 package com.tcc.money.network.api
+
 import com.tcc.money.data.dto.Login
 import com.tcc.money.data.models.Users
 import okhttp3.ResponseBody
@@ -8,23 +9,23 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.Call
 
-interface UsersApi{
+interface UsersApi {
     @GET("api/users/refresh-token")
-     fun refreshToken(): Call<ResponseBody>
+    fun refreshToken(): Call<ResponseBody>
 
     @POST("api/users/save")
-     fun save(@Body users: Users): Call<ResponseBody>
+    fun save(@Body users: Users): Call<ResponseBody>
 
     @POST("api/user/login")
-     fun login(@Body login: Login): Call<ResponseBody>
+    fun login(@Body login: Login): Call<ResponseBody>
 
     @GET("api/user/check")
     fun check(): Call<ResponseBody>
 
     @PUT("api/users/update")
-     fun update(@Body users: Users): Call<ResponseBody>
+    fun update(@Body users: Users): Call<ResponseBody>
 
-     @GET("api/user/online")
-     fun online(): Call<ResponseBody>
+    @GET("api/user/online")
+    fun online(): Call<ResponseBody>
 
 }
