@@ -20,6 +20,7 @@ class CadastroEtapa1Activity : AppCompatActivity() {
 
         binding.btnProximo.setOnClickListener {
             val intent = Intent(this, CadastroEtapa2Activity::class.java)
+
            startActivity(intent)
         }
         binding.btnVoltar.setOnClickListener {

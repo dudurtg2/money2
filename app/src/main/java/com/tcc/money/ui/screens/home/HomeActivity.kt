@@ -30,11 +30,6 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    /**
-     * Tudo que você costumava criar manualmente via lazy { … } agora
-     * será injetado pelo Hilt. Certifique‐se de que cada classe tenha
-     * um construtor anotado com @Inject ou esteja exposta via @Module/@Provides.
-     */
     @Inject
     lateinit var checkPremium: CheckPremiumAccountUseCase
 

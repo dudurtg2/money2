@@ -4,37 +4,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.tcc.money.databinding.ActivityLoginBinding
+import com.tcc.money.databinding.ActivityPrincipalBinding
 
-class Home2Activity : AppCompatActivity() {
-
+class PrincipalActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPrincipalBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
-        // Botões da primeira parte da tela
-        val btnReceita: Button = findViewById(R.id.btnReceita)
-        val btnDespesa: Button = findViewById(R.id.btnDespesa)
-        val btnPix: Button = findViewById(R.id.btnPix)
+        binding = ActivityPrincipalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnReceita.setOnClickListener {
+        binding.btnReceita.setOnClickListener {
             Toast.makeText(this, "Botão Receita clicado", Toast.LENGTH_SHORT).show()
         }
-        btnDespesa.setOnClickListener {
+        binding.btnDespesa.setOnClickListener {
             Toast.makeText(this, "Botão Despesa clicado", Toast.LENGTH_SHORT).show()
         }
-        btnPix.setOnClickListener {
+        binding.btnPix.setOnClickListener {
             Toast.makeText(this, "Botão Pix clicado", Toast.LENGTH_SHORT).show()
         }
 
-        // Botões da segunda parte da tela
-        val btnAdicionar: Button = findViewById(R.id.btnAdicionar)
-        val btnRetirar: Button = findViewById(R.id.btnRetirar)
-
-        btnAdicionar.setOnClickListener {
+        binding.btnAdicionar.setOnClickListener {
             Toast.makeText(this, "Botão ADICIONAR clicado", Toast.LENGTH_SHORT).show()
         }
 
-        btnRetirar.setOnClickListener {
+        binding.btnRetirar.setOnClickListener {
             Toast.makeText(this, "Botão RETIRAR clicado", Toast.LENGTH_SHORT).show()
         }
     }

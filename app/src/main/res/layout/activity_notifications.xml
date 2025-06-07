@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+    <!-- Top Bar -->
     <androidx.cardview.widget.CardView
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         app:cardBackgroundColor="#F2F2F2"
         app:cardCornerRadius="40dp"
         app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,36 +58,42 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
+    <!-- Nuvem 1 -->
     <ImageView
         android:id="@+id/cloud1"
         android:layout_width="173dp"
         android:layout_height="69dp"
         android:contentDescription="Nuvem azul"
         android:src="@drawable/cloud_noti_icon"
-        tools:layout_editor_absoluteX="-9dp"
-        tools:layout_editor_absoluteY="261dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
 
+    <!-- Nuvem 2 -->
     <ImageView
         android:id="@+id/cloud2"
         android:layout_width="188dp"
         android:layout_height="79dp"
         android:contentDescription="Nuvem azul"
         android:src="@drawable/cloud_noti_icon"
-        tools:layout_editor_absoluteX="211dp"
-        tools:layout_editor_absoluteY="411dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
 
+    <!-- Mensagem de "Nenhuma atualização" -->
     <TextView
         android:id="@+id/txtNenhumaAtualizacao"
         style="@style/Main_values"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Nenhuma \n atualização:("
+        android:layout_marginTop="24dp"
+        android:text="Nenhuma \n atualização :("
         android:textAlignment="center"
         android:textColor="#C0C0C0"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cloud2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cloud1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
