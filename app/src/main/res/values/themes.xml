@@ -14,29 +14,34 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Titles">
+    <style name="titles">
         <item name="android:fontFamily">@font/inria_sans_regular</item>
         <item name="android:textSize">30sp</item>
     </style>
 
-    <style name="Sub_Titles_BOLD">
+    <style name="sub_titles_bold">
         <item name="android:fontFamily">@font/inria_sans_bold</item>
         <item name="android:textSize">22sp</item>
     </style>
 
-    <style name="Sub_Titles">
+    <style name="sub_titles">
         <item name="android:fontFamily">@font/inria_sans_regular</item>
         <item name="android:textSize">22sp</item>
     </style>
 
-    <style name="Main_Text">
+    <style name="main_text">
         <item name="android:fontFamily">@font/inria_sans_regular</item>
         <item name="android:textSize">17sp</item>
     </style>
 
-    <style name="Sub_Main_Text">
+    <style name="sub_main_text">
         <item name="android:fontFamily">@font/inria_sans_regular</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="main_values">
+        <item name="android:fontFamily">@font/inria_sans_bold</item>
+        <item name="android:textSize">50sp</item>
     </style>
 
 

@@ -14,7 +14,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            >
 
             <LinearLayout
                 android:id="@+id/layout_user"
@@ -37,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/txt_usuario"
-                    style="@style/Titles"
+                    style="@style/tTitles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Esterzinha"

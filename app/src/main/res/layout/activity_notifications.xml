@@ -42,7 +42,7 @@
             <!-- Título centralizado -->
             <TextView
                 android:id="@+id/txtTitulo"
-                style="@style/Titles"
+                style="@style/titles"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -85,7 +85,7 @@
     <!-- Mensagem de "Nenhuma atualização" -->
     <TextView
         android:id="@+id/txtNenhumaAtualizacao"
-        style="@style/Main_values"
+        style="@style/main_values"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
