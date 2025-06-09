@@ -1,12 +1,11 @@
 package com.tcc.money.ui.screens.cadastros
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.tcc.money.R
+import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa1Binding
 
 class CadastroEtapa1Activity : AppCompatActivity() {
@@ -19,12 +18,49 @@ class CadastroEtapa1Activity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnProximo.setOnClickListener {
-            val intent = Intent(this, CadastroEtapa2Activity::class.java)
+            if (validarCampos()) {
+                val cadastro = Cadastro(
+                    nome = binding.etNome.text.toString().trim(),
+                    sobrenome = binding.etSobrenome.text.toString().trim(),
+                    cpf = binding.etCpf.text.toString().trim(),
+                    dataNascimento = binding.etDataNascimento.text.toString().trim()
+                )
 
-           startActivity(intent)
+                val intent = Intent(this, CadastroEtapa2Activity::class.java)
+                intent.putExtra("cadastro", cadastro)
+                startActivity(intent)
+            }
         }
+
         binding.btnVoltar.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun validarCampos(): Boolean {
+        val nome = binding.etNome.text.toString().trim()
+        val sobrenome = binding.etSobrenome.text.toString().trim()
+        val cpf = binding.etCpf.text.toString().trim()
+        val dataNascimento = binding.etDataNascimento.text.toString().trim()
+
+        return when {
+            nome.isEmpty() -> {
+                Toast.makeText(this, "Preencha o campo Nome", Toast.LENGTH_SHORT).show()
+                false
+            }
+            sobrenome.isEmpty() -> {
+                Toast.makeText(this, "Preencha o campo Sobrenome", Toast.LENGTH_SHORT).show()
+                false
+            }
+            cpf.length != 11 -> {
+                Toast.makeText(this, "CPF deve conter 11 dígitos", Toast.LENGTH_SHORT).show()
+                false
+            }
+            dataNascimento.isEmpty() -> {
+                Toast.makeText(this, "Preencha a Data de Nascimento", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
         }
     }
 }
