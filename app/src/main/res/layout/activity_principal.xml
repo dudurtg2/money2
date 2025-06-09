@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,84 +48,109 @@
 
             <!-- Ícones alinhados à direita -->
             <LinearLayout
-                android:id="@+id/layout_icons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="4dp"
-                android:layout_constraintEnd_toEndOf="parent"
-                android:layout_constraintTop_toTopOf="parent"
-                android:layout_constraintBottom_toBottomOf="parent">
+                android:layout_marginStart="124dp"
+                app:layout_constraintStart_toEndOf="@+id/layout_user"
+                tools:layout_editor_absoluteY="9dp">
 
                 <ImageView
                     android:id="@+id/ivProfile"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/profile_icon"
-                    android:contentDescription="Ícone de perfil"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/icon_bg"
                     android:backgroundTint="@color/secundary"
-                    android:padding="4dp"
                     android:clipToOutline="true"
-                    android:outlineProvider="background" />
+                    android:contentDescription="Ícone de perfil"
+                    android:outlineProvider="background"
+                    android:padding="10dp"
+                    android:src="@drawable/profile_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/btnNottification"
+                    tools:layout_editor_absoluteY="17dp" />
 
                 <ImageView
-                    android:id="@+id/btnSettings"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_settings"
-                    android:contentDescription="Configurações" />
+                    android:id="@+id/btnNottification"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/icon_bg"
+                    android:contentDescription="Configurações"
+                    android:padding="10dp"
+                    android:src="@drawable/notification_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layout_editor_absoluteY="16dp" />
+
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Cartão de saldo -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            android:cardCornerRadius="16dp"
-            android:cardElevation="4dp"
-            android:cardBackgroundColor="@color/primary">
+            app:contentPadding="10dp"
+            app:cardCornerRadius="40dp"
+            app:cardBackgroundColor="@color/bg"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saldo atual"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                <!-- Saldo Total -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:background="@drawable/rounded_card"
+                    android:backgroundTint="@color/primary"
+                    android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/txt_saldo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R$ 5.000,00"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/infosSaldo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            style="@style/sub_titles"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Saldo atual"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            style="@style/titles"
+                            android:id="@+id/txt_saldo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="R$ 5.000,00"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- Botões dentro do cartão -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:layout_marginTop="12dp">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnEntrada"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Entrada"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttons"
                         android:backgroundTint="@color/add"
+                        android:text="[Valor de Entrada]"
                         android:textColor="@color/white" />
 
                     <Space
@@ -133,13 +160,17 @@
                     <Button
                         android:id="@+id/btnDespesas"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Despesas"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttons"
                         android:backgroundTint="@color/remove"
+                        android:text="[Valor de Saída]"
                         android:textColor="@color/white" />
                 </LinearLayout>
+
             </LinearLayout>
+
+
         </androidx.cardview.widget.CardView>
 
         <!-- Seção de Resumo Cripto -->
