@@ -76,7 +76,8 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/profile_icon"
-                    android:background="@color/secundary"
+                    android:background="@drawable/icon_bg"
+                    android:backgroundTint="@color/secundary"
                     android:padding="12dp" />
 
                 <LinearLayout
@@ -118,66 +119,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topBar">
-
-            <LinearLayout
-                android:id="@+id/cardPlanos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topBar">
-
-                <!-- Título do plano -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="MoneyFlow+"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Card branco dentro -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_card"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:text="Planos"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:text="Veja os planos disponíveis."
-                            android:textColor="@color/primary"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_circle_light"
-                android:padding="6dp"
-                android:src="@drawable/ic_money"
-                android:tint="@color/primary" />
 
         </LinearLayout>
 
