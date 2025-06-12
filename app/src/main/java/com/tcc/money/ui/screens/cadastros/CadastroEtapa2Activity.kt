@@ -7,13 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa2Binding
+import com.tcc.money.utils.CadastroEtapa2Validator
 
 class CadastroEtapa2Activity : AppCompatActivity() {
+
     private var senhaVisivel = false
     private var confirmarVisivel = false
     private lateinit var binding: ActivityCadastroEtapa2Binding
-
-    private lateinit var dadosRecebidos: Cadastro
+    private lateinit var dadosEtapa1: Cadastro
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +22,9 @@ class CadastroEtapa2Activity : AppCompatActivity() {
         binding = ActivityCadastroEtapa2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Recebe o DTO enviado da Etapa 1
-        dadosRecebidos = intent.getSerializableExtra("cadastro") as Cadastro
+        // Recupera os dados da Etapa 1
+        dadosEtapa1 = intent.getSerializableExtra("cadastro") as Cadastro
 
-        // Alternar visibilidade da senha
         binding.ivToggleSenha.setOnClickListener {
             senhaVisivel = !senhaVisivel
             binding.etSenha.inputType = if (senhaVisivel)
@@ -34,7 +34,6 @@ class CadastroEtapa2Activity : AppCompatActivity() {
             binding.etSenha.setSelection(binding.etSenha.text.length)
         }
 
-        // Alternar visibilidade da confirmação
         binding.ivToggleConfirmar.setOnClickListener {
             confirmarVisivel = !confirmarVisivel
             binding.etConfirmarSenha.inputType = if (confirmarVisivel)
@@ -44,40 +43,22 @@ class CadastroEtapa2Activity : AppCompatActivity() {
             binding.etConfirmarSenha.setSelection(binding.etConfirmarSenha.text.length)
         }
 
-        // Botão Voltar
         binding.btnVoltar.setOnClickListener {
             finish()
         }
 
-        // Botão Cadastrar
         binding.btnCadastrar.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val senha = binding.etSenha.text.toString().trim()
-            val confirmar = binding.etConfirmarSenha.text.toString().trim()
+            val confirmarSenha = binding.etConfirmarSenha.text.toString().trim()
 
-            when {
-                email.isEmpty() || senha.isEmpty() || confirmar.isEmpty() -> {
-                    Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
-                }
-                senha != confirmar -> {
-                    Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    // Atualiza o DTO com email e senha
-                    val cadastroCompleto = dadosRecebidos.copy(
-                        email = email,
-                        senha = senha
-                    )
-
-                    // Aqui você pode salvar o cadastro ou enviar pra API
-                    Toast.makeText(this, "Cadastro concluído com sucesso!", Toast.LENGTH_SHORT).show()
-
-                    // Exemplo: log dos dados
-                    println("Cadastro completo: $cadastroCompleto")
-
-                    // TODO: Navegar para a Home ou outra tela se quiser
-                }
+            if (CadastroEtapa2Validator.validarTodos(email, senha, confirmarSenha)) {
+                // Aqui poderia ir para uma tela de sucesso ou salvar no banco
+                Toast.makeText(this, "Cadastro finalizado com sucesso!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Verifique os campos digitados.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 }
+

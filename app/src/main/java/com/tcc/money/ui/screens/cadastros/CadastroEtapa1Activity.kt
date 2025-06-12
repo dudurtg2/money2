@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa1Binding
+import com.tcc.money.utils.CadastroValidator  // IMPORTANTE
 
 class CadastroEtapa1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroEtapa1Binding
@@ -44,19 +45,19 @@ class CadastroEtapa1Activity : AppCompatActivity() {
         val dataNascimento = binding.etDataNascimento.text.toString().trim()
 
         return when {
-            nome.isEmpty() -> {
+            !CadastroValidator.validarNome(nome) -> {
                 Toast.makeText(this, "Preencha o campo Nome", Toast.LENGTH_SHORT).show()
                 false
             }
-            sobrenome.isEmpty() -> {
+            !CadastroValidator.validarSobrenome(sobrenome) -> {
                 Toast.makeText(this, "Preencha o campo Sobrenome", Toast.LENGTH_SHORT).show()
                 false
             }
-            cpf.length != 11 -> {
+            !CadastroValidator.validarCpf(cpf) -> {
                 Toast.makeText(this, "CPF deve conter 11 dígitos", Toast.LENGTH_SHORT).show()
                 false
             }
-            dataNascimento.isEmpty() -> {
+            !CadastroValidator.validarDataNascimento(dataNascimento) -> {
                 Toast.makeText(this, "Preencha a Data de Nascimento", Toast.LENGTH_SHORT).show()
                 false
             }
