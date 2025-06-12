@@ -1,4 +1,4 @@
-package com.tcc.money.utils
+package com.tcc.money.utils.validator
 
 object CadastroEtapa2Validator {
 
