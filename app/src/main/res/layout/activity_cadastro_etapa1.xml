@@ -49,11 +49,11 @@
                 android:layout_width="200px"
                 android:layout_height="200px"
                 android:src="@drawable/money_flow_logo"
-                android:tint="@color/primary"
+                app:tint="@color/primary"
                 android:layout_marginBottom="24dp" />
 
             <TextView
-                style="@style/Titles"
+                style="@style/titles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registre-se"
@@ -61,7 +61,7 @@
                 android:layout_marginBottom="4dp" />
 
             <TextView
-                style="@style/Sub_Titles"
+                style="@style/sub_titles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dados pessoais"
@@ -71,7 +71,7 @@
             <!-- Campos -->
             <EditText
                 android:id="@+id/etNome"
-                style="@style/Main_Text"
+                style="@style/main_text"
                 android:hint="Nome"
                 android:textColorHint="@color/primary"
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
 
             <EditText
                 android:id="@+id/etSobrenome"
-                style="@style/Main_Text"
+                style="@style/main_text"
                 android:hint="Sobrenome"
                 android:textColorHint="@color/primary"
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
 
             <EditText
                 android:id="@+id/etCpf"
-                style="@style/Main_Text"
+                style="@style/main_text"
                 android:hint="CPF"
                 android:textColorHint="@color/primary"
                 android:inputType="number"
@@ -105,7 +105,7 @@
 
             <EditText
                 android:id="@+id/etDataNascimento"
-                style="@style/Main_Text"
+                style="@style/main_text"
                 android:hint="Data de Nascimento"
                 android:textColorHint="@color/primary"
                 android:inputType="date"
@@ -117,7 +117,7 @@
 
             <!-- Botão Próximo -->
             <Button
-                style="@style/Sub_Titles"
+                style="@style/sub_titles"
                 android:id="@+id/btnProximo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

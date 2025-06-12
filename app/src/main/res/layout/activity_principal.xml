@@ -51,8 +51,8 @@
                             android:layout_constraintBottom_toBottomOf="parent">
 
                             <TextView
+                                style="@style/sub_titles"
                                 android:id="@+id/txt_boas_vindas"
-                                android:style="@style/Sub_TitlesTitles"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Boa tarde,"
