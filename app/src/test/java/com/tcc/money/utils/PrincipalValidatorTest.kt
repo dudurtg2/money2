@@ -1,5 +1,6 @@
 package com.tcc.money.utils
 
+import com.tcc.money.utils.validator.PrincipalValidator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

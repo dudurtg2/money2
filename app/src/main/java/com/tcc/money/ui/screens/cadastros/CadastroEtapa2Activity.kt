@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa2Binding
-import com.tcc.money.utils.CadastroEtapa2Validator
+import com.tcc.money.utils.validator.CadastroEtapa2Validator
 
 class CadastroEtapa2Activity : AppCompatActivity() {
 

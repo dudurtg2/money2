@@ -1,4 +1,6 @@
-object CadastroValidator {
+package com.tcc.money.utils.validator
+
+object CadastroEtapa1Validator {
 
     fun isNomeValido(nome: String): Boolean {
         return nome.isNotBlank()
