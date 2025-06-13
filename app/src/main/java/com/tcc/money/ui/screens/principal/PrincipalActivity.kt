@@ -1,10 +1,12 @@
-package com.example.moneyflowapp
+package com.tcc.money.ui.screens.principal
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.databinding.ActivityPrincipalBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PrincipalActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPrincipalBinding
 

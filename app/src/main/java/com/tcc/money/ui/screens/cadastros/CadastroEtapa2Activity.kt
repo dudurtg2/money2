@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa2Binding
 import com.tcc.money.utils.validator.CadastroEtapa2Validator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CadastroEtapa2Activity : AppCompatActivity() {
 
     private var senhaVisivel = false
