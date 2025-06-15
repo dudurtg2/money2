@@ -8,12 +8,14 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/tela_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Cartão de saldo -->
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -21,16 +23,16 @@
             android:backgroundTint="@color/bg"
             android:padding="20dp">
 
-
             <LinearLayout
+                android:id="@+id/header_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <!-- Header com nome do usuário e ícones -->
                 <LinearLayout
+                    android:id="@+id/header_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -44,13 +46,11 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_marginStart="4dp"
-                            android:layout_constraintStart_toStartOf="parent"
-                            android:layout_constraintTop_toTopOf="parent"
-                            android:layout_constraintBottom_toBottomOf="parent">
+                          >
 
                             <TextView
+                                style="@style/sub_titles"
                                 android:id="@+id/txt_boas_vindas"
-                                android:style="@style/Sub_TitlesTitles"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Boa tarde,"
@@ -67,6 +67,7 @@
 
                         <!-- Ícones alinhados à direita -->
                         <LinearLayout
+                            android:id="@+id/header_icons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="160dp"
@@ -90,7 +91,7 @@
                                 tools:layout_editor_absoluteY="17dp" />
 
                             <ImageView
-                                android:id="@+id/btnNottification"
+                                android:id="@+id/ivNottification"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
 
@@ -109,6 +110,7 @@
 
                 <!-- Saldo Total -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/main_card"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:background="@drawable/rounded_card"
@@ -116,7 +118,7 @@
                     android:padding="20dp">
 
                     <LinearLayout
-                        android:id="@+id/infosSaldo"
+                        android:id="@+id/infos_saldo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -124,6 +126,7 @@
                         app:layout_constraintBottom_toBottomOf="parent" >
 
                         <TextView
+                            android:id="@+id/saldo_title"
                             style="@style/sub_titles"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -132,8 +135,8 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/saldo_values"
                             style="@style/titles"
-                            android:id="@+id/txt_saldo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="R$ 5.000,00"
@@ -143,6 +146,7 @@
 
                 <!-- Botões dentro do cartão -->
                 <LinearLayout
+                    android:id="@+id/card_btns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -151,6 +155,7 @@
 
                     <!-- Valor de entrada -->
                     <LinearLayout
+                        android:id="@+id/entry_values"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/buttons"
@@ -160,6 +165,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/entry_values_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/buttons"
@@ -169,8 +175,8 @@
                             android:src="@drawable/baseline_add" />
 
                         <Button
+                            android:id="@+id/entry_values_txt"
                             style="@style/sub_titles"
-                            android:id="@+id/btnEntrada"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
@@ -184,6 +190,7 @@
 
                     <!-- Botão pra alterar filtro -->
                     <LinearLayout
+                        android:id="@+id/entry_values_filter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/buttons"
@@ -193,6 +200,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/entry_values_filter_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/buttons"
@@ -203,8 +211,8 @@
 
 
                         <Button
+                            android:id="@+id/entry_values_filter_txt"
                             style="@style/main_text"
-                            android:id="@+id/btnFiltro"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -231,15 +239,15 @@
 
 
                 <LinearLayout
+                    android:id="@+id/banks_list"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:scrollbarTrackHorizontal="@color/primary">
 
-
-
                     <LinearLayout
+                        android:id="@+id/bank_card"
                         android:layout_width="140dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/icon_bg"
@@ -247,9 +255,8 @@
                         android:padding="5dp"
                         android:orientation="vertical">
 
-
-
                         <LinearLayout
+                            android:id="@+id/bank_head"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:background="@drawable/icon_bg"
@@ -257,6 +264,7 @@
                             android:padding="5dp">
 
                             <ImageView
+                                android:id="@+id/bank_head_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/paper_money"
@@ -265,6 +273,7 @@
                                 android:paddingEnd="5dp"/>
 
                             <TextView
+                                android:id="@+id/bank_head_name"
                                 style="@style/main_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -276,6 +285,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/bank_card_value"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="bottom|center"
@@ -283,6 +293,7 @@
                             android:layout_marginBottom="5dp">
 
                             <TextView
+                                android:id="@+id/bank_value"
                                 style="@style/sub_titles_bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -291,13 +302,10 @@
 
                         </LinearLayout>
 
-
                     </LinearLayout>
 
-
-
-
                     <LinearLayout
+                        android:id="@+id/bank_see_all"
                         android:layout_width="140dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -306,8 +314,6 @@
                         android:orientation="vertical"
                         android:padding="5dp">
 
-
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -315,6 +321,7 @@
                             android:padding="5dp">
 
                             <ImageView
+                                android:id="@+id/bank_see_all_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -333,6 +340,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/bank_see_all_txt"
                                 style="@style/main_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -341,16 +349,11 @@
 
                         </LinearLayout>
 
-
-
                     </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
 
         </LinearLayout>
 
@@ -361,6 +364,7 @@
             android:paddingHorizontal="10dp">
 
             <LinearLayout
+                android:id="@+id/last_transition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -385,7 +389,7 @@
 
 
             <LinearLayout
-                android:id="@+id/item_banco"
+                android:id="@+id/last_transition_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

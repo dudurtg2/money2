@@ -143,7 +143,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            android:background="@drawable/bg_card"
             android:padding="16dp"
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/txtConfig"
@@ -153,7 +152,6 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_edit"
                 android:tint="@color/primary" />
 
             <LinearLayout

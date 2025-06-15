@@ -16,6 +16,8 @@ import com.tcc.money.data.services.IsApiAvailableNowService
 import com.tcc.money.databinding.ActivityLoginBinding
 import com.tcc.money.ui.screens.cadastros.CadastroEtapa1Activity
 import com.tcc.money.ui.screens.home.HomeActivity
+import com.tcc.money.ui.screens.notification.NotificationsActivity
+import com.tcc.money.ui.screens.principal.PrincipalActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
