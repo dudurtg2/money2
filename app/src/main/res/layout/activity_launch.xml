@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- TOPO AZUL -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:orientation="vertical"
+        android:layout_marginBottom="0dp">
+
+        <!-- Botão de voltar + título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/primary"
+                android:contentDescription="Voltar"
+                android:padding="6dp"
+                android:src="@drawable/arrow_back_light" />
+
+            <TextView
+                style="@style/titles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Lançar"
+                android:textColor="@color/secundary"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="26dp"
+            android:layout_marginTop="25dp">
+
+            <!-- Texto VALOR -->
+            <TextView
+                style="@style/main_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valor"
+                android:textColor="@color/white" />
+
+            <!-- Valor digitado -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_marginTop="22dp"
+                    style="@style/sub_titles_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="R$"
+                    android:textColor="@color/white" />
+
+                <EditText
+                    style="@style/main_values"
+                    android:textSize="90sp"
+                    android:id="@+id/tvValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="00,00"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:maxLength="15" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rounded_top"/>
+
+    </LinearLayout>
+
+    <!-- PARTE BRANCA COM CANTOS ARREDONDADOS -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+        <!-- BOTÕES RECEITA E DESPESA -->
+        <!-- BOTÕES RECEITA E DESPESA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="30dp">
+
+            <!-- Botão Receita -->
+            <Button
+                style="@style/sub_titles_bold"
+                android:id="@+id/btnReceita"
+                android:layout_width="0dp"
+                android:paddingHorizontal="15dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:text="+$\n Receita"
+                android:gravity="center_vertical|start"
+                android:textAllCaps="false"
+                android:textColor="@color/secundary"
+                android:background="@drawable/bg_button_unselected" />
+
+            <!-- Botão Despesa -->
+            <Button
+                style="@style/sub_titles_bold"
+                android:id="@+id/btnDespesa"
+                android:layout_width="0dp"
+                android:paddingHorizontal="15dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="-$\n Despesa"
+                android:gravity="center_vertical|start"
+                android:textAllCaps="false"
+                android:textColor="@color/secundary"
+                android:background="@drawable/bg_button_unselected" />
+        </LinearLayout>
+
+
+        <!-- Aqui entraria o teclado do sistema ou custom -->
+    </LinearLayout>
+</LinearLayout>

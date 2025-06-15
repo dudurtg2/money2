@@ -70,8 +70,8 @@ kapt {
 }
 
 dependencies {
-    // Dagger-Hilt
 
+    // Dagger-Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

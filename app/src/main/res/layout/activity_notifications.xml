@@ -47,7 +47,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Notificações"
-                android:textColor="#0047FF" />
+                android:textColor="@color/primary" />
 
             <!-- View invisível pra equilibrar -->
             <View
