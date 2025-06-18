@@ -11,11 +11,14 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.tcc.money.R
+import com.tcc.money.data.dto.LaunchDTO
+import com.tcc.money.utils.validator.LancamentoDetalhadoValidator
 
 class LancamentoDetalhadoActivity : AppCompatActivity() {
 
     private lateinit var btnTipoValor: Button
     private lateinit var btnEditarValor: Button
+    private lateinit var btnBack: ImageView
     private lateinit var tvValorDigitado: TextView
     private lateinit var btnDetalharDepois: Button
     private lateinit var btnHoraNotificacao: Button
@@ -31,15 +34,33 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
     private var categoriaSelecionada: Int? = null
     private var recorrenteSelecionado = false
     private var parceladoSelecionado = false
-    private var valorTotal = 0.0 // pode vir do Intent também
+    private var qtdParcelas: Int? = null
+    private var valorTotal = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamento_detalhado)
 
-        // Bind
+        bindViews()
+        setupListeners()
+
+        // Receber dados do DTO
+        val dto = intent.getSerializableExtra("launch") as? LaunchDTO
+        val tipo = dto?.tipo ?: "Receita"
+        val valor = dto?.valor ?: "00,00"
+
+        btnTipoValor.text = tipo
+        tvValorDigitado.text = "R$ $valor"
+        valorTotal = valor.replace(",", ".").toDoubleOrNull() ?: 0.0
+
+        gerarDestinosMock()
+        gerarCategoriasMock()
+    }
+
+    private fun bindViews() {
         btnTipoValor = findViewById(R.id.btnTipoValor)
         btnEditarValor = findViewById(R.id.btnEditarValor)
+        btnBack = findViewById(R.id.btnBack)
         tvValorDigitado = findViewById(R.id.tvValorDigitado)
         btnDetalharDepois = findViewById(R.id.btnDetalharDepois)
         btnHoraNotificacao = findViewById(R.id.btnHoraNotificacao)
@@ -50,16 +71,14 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         btnParcelado = findViewById(R.id.btnParcelado)
         layoutExtra = findViewById(R.id.layoutExtra)
         btnLancar = findViewById(R.id.btnLancar)
+    }
 
-        // Valor recebido (mockado por enquanto)
-        val tipo = intent.getStringExtra("tipo") ?: "Receita"
-        val valor = intent.getStringExtra("valor") ?: "00,00"
-        btnTipoValor.text = tipo
-        tvValorDigitado.text = "R$ $valor"
-        valorTotal = valor.replace(",", ".").toDoubleOrNull() ?: 0.0
-
+    private fun setupListeners() {
         btnEditarValor.setOnClickListener {
-            // Voltar pra tela de valor
+            finish()
+        }
+
+        btnBack.setOnClickListener {
             finish()
         }
 
@@ -74,12 +93,10 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
             Toast.makeText(this, "Notificar em 1h (placeholder)", Toast.LENGTH_SHORT).show()
         }
 
-        gerarDestinosMock()
-        gerarCategoriasMock()
-
         btnRecorrente.setOnClickListener {
             recorrenteSelecionado = true
             parceladoSelecionado = false
+            qtdParcelas = null
             atualizarRecorrenteOuParcelado()
         }
 
@@ -90,23 +107,21 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         }
 
         btnLancar.setOnClickListener {
-            Toast.makeText(this, "Lançamento realizado com sucesso!", Toast.LENGTH_SHORT).show()
-            finish()
+            if (validarCampos()) {
+                Toast.makeText(this, "Lançamento realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Preencha todos os campos corretamente!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     private fun gerarDestinosMock() {
         val destinos = listOf("Cash App", "PayPal", "Nubank")
         destinos.forEachIndexed { index, nome ->
-            val button = Button(this).apply {
-                text = "$nome\nR$0000,00"
-                setPadding(16, 8, 16, 8)
-                background = ContextCompat.getDrawable(context, R.drawable.bg_button_unselected)
-                setTextColor(ContextCompat.getColor(context, R.color.primary))
-                setOnClickListener {
-                    destinoSelecionado = index
-                    atualizarSelecao(layoutDestinos, index)
-                }
+            val button = criarBotaoSelecionavel("$nome\nR$0000,00") {
+                destinoSelecionado = index
+                atualizarSelecao(layoutDestinos, index)
             }
             layoutDestinos.addView(button)
         }
@@ -115,18 +130,22 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
     private fun gerarCategoriasMock() {
         val categorias = listOf("Transferência", "Venda", "Freelance")
         categorias.forEachIndexed { index, nome ->
-            val button = Button(this).apply {
-                text = nome
-                setPadding(24, 16, 24, 16)
-                background = ContextCompat.getDrawable(context, R.drawable.bg_button_unselected)
-                setTextColor(ContextCompat.getColor(context, R.color.primary))
-                setOnClickListener {
-                    categoriaSelecionada = index
-                    atualizarSelecao(layoutCategorias, index)
-                    btnLancar.visibility = View.VISIBLE
-                }
+            val button = criarBotaoSelecionavel(nome) {
+                categoriaSelecionada = index
+                atualizarSelecao(layoutCategorias, index)
+                btnLancar.visibility = View.VISIBLE
             }
             layoutCategorias.addView(button)
+        }
+    }
+
+    private fun criarBotaoSelecionavel(texto: String, onClick: () -> Unit): Button {
+        return Button(this).apply {
+            text = texto
+            setPadding(24, 16, 24, 16)
+            background = ContextCompat.getDrawable(context, R.drawable.bg_button_unselected)
+            setTextColor(ContextCompat.getColor(context, R.color.primary))
+            setOnClickListener { onClick() }
         }
     }
 
@@ -178,6 +197,7 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
             input.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     val qtd = s.toString().toIntOrNull()
+                    qtdParcelas = qtd
                     if (qtd != null && qtd > 0) {
                         val valor = valorTotal / qtd
                         valorPorParcela.text = "Valor de cada parcela:\nR$ %.2f".format(valor)
@@ -193,5 +213,16 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
             layoutExtra.addView(input)
             layoutExtra.addView(valorPorParcela)
         }
+    }
+
+    private fun validarCampos(): Boolean {
+        return LancamentoDetalhadoValidator.validarTodos(
+            destino = destinoSelecionado,
+            categoria = categoriaSelecionada,
+            descricao = edtDescricao.text.toString(),
+            parcelado = parceladoSelecionado,
+            qtdParcelas = qtdParcelas,
+            valor = valorTotal
+        )
     }
 }

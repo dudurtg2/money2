@@ -24,46 +24,36 @@ class PrincipalActivity : AppCompatActivity() {
         val cadastro = intent.getSerializableExtra("cadastro") as? Cadastro
         binding.txtUsuario.text = cadastro?.nome ?: "Usuário"
 
-        // Botão de Entrada
+        // 👉 Botão de Entrada (por enquanto Toast)
         binding.entryValuesTxt.setOnClickListener {
             Toast.makeText(this, "Entrada clicada", Toast.LENGTH_SHORT).show()
-            // Aqui você pode abrir uma tela específica de entrada
         }
 
-        // Botão de Filtro
+        // 👉 Botão de Filtro (por enquanto Toast)
         binding.entryValuesFilterTxt.setOnClickListener {
             Toast.makeText(this, "Filtro clicado", Toast.LENGTH_SHORT).show()
-            // Aqui você pode abrir uma tela ou dialog de filtros
         }
 
-        // Ícone de Perfil
+        // 👉 Ícone de Perfil → Vai para a tela de Perfil
         binding.ivProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
-        // Ícone de Notificações
+        // 👉 Ícone de Notificações → Vai para a tela de Notificações
         binding.ivNottification.setOnClickListener {
             val intent = Intent(this, NotificationsActivity::class.java)
             startActivity(intent)
         }
 
-        // Navbar - Botão Dashboard
-        binding.navbar.getChildAt(1).setOnClickListener {
-            Toast.makeText(this, "Dashboard clicado", Toast.LENGTH_SHORT).show()
-            // Aqui futuramente pode abrir a tela de Dashboard
-        }
-
-        // Navbar - Botão Metas
+        // 👉 Navbar - Botão Metas (por enquanto Toast)
         binding.navbar.getChildAt(2).setOnClickListener {
             Toast.makeText(this, "Metas clicado", Toast.LENGTH_SHORT).show()
-            // Aqui futuramente pode abrir a tela de Metas
         }
 
-        // Navbar - Botão Lançar (Central)
+        // 👉 Navbar - Botão Lançar (Central) (por enquanto Toast)
         binding.navbar.getChildAt(0).setOnClickListener {
             Toast.makeText(this, "Lançar clicado", Toast.LENGTH_SHORT).show()
-            // Aqui futuramente pode abrir a tela de lançamento (adicionar/retirar)
         }
     }
 }
