@@ -1,5 +1,6 @@
 package com.tcc.money.ui.screens.cadastros
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa2Binding
+import com.tcc.money.ui.screens.principal.PrincipalActivity
 import com.tcc.money.utils.validator.CadastroEtapa2Validator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +26,6 @@ class CadastroEtapa2Activity : AppCompatActivity() {
         binding = ActivityCadastroEtapa2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Recupera os dados da Etapa 1
         dadosEtapa1 = intent.getSerializableExtra("cadastro") as Cadastro
 
         binding.ivToggleSenha.setOnClickListener {
@@ -46,6 +47,8 @@ class CadastroEtapa2Activity : AppCompatActivity() {
         }
 
         binding.btnVoltar.setOnClickListener {
+            val intent = Intent(this, CadastroEtapa1Activity::class.java)
+            startActivity(intent)
             finish()
         }
 
@@ -55,12 +58,15 @@ class CadastroEtapa2Activity : AppCompatActivity() {
             val confirmarSenha = binding.etConfirmarSenha.text.toString().trim()
 
             if (CadastroEtapa2Validator.validarTodos(email, senha, confirmarSenha)) {
-                // Aqui poderia ir para uma tela de sucesso ou salvar no banco
                 Toast.makeText(this, "Cadastro finalizado com sucesso!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, PrincipalActivity::class.java)
+                intent.putExtra("cadastro", dadosEtapa1)
+                startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "Verifique os campos digitados.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 }
-

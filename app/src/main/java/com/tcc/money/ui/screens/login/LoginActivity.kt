@@ -11,12 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.tcc.money.R
 import com.tcc.money.data.applications.LoginUseCase
 import com.tcc.money.data.dto.Login
-import com.tcc.money.data.services.AuthenticateService
-import com.tcc.money.data.services.IsApiAvailableNowService
 import com.tcc.money.databinding.ActivityLoginBinding
 import com.tcc.money.ui.screens.cadastros.CadastroEtapa1Activity
-import com.tcc.money.ui.screens.home.HomeActivity
-import com.tcc.money.ui.screens.notification.NotificationsActivity
 import com.tcc.money.ui.screens.principal.PrincipalActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -55,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 runCatching { login() }
                     .onSuccess {
-                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, PrincipalActivity::class.java))
                         finish()
                     }
                     .onFailure { e ->

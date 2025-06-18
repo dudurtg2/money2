@@ -18,11 +18,17 @@ object CadastroEtapa1Validator {
         return dataNascimento.isNotBlank()
     }
 
-    fun validarTodos(nome: String, sobrenome: String, cpf: String, dataNascimento: String): Boolean {
+    fun validarTodos(
+        nome: String,
+        sobrenome: String,
+        cpf: String,
+        dataNascimento: String
+    ): Boolean {
         return isNomeValido(nome) &&
                 isSobrenomeValido(sobrenome) &&
                 isCpfValido(cpf) &&
                 isDataNascimentoValida(dataNascimento)
     }
 }
+
 
