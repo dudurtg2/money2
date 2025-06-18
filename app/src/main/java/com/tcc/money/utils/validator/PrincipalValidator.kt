@@ -7,7 +7,7 @@ object PrincipalValidator {
     }
 
     fun isSaldoValido(saldo: Float): Boolean {
-        return saldo > 0f
+        return saldo >= 0f
     }
 
     fun isEntradaValida(valor: Float): Boolean {
@@ -27,7 +27,11 @@ object PrincipalValidator {
     }
 
     fun isTextoFiltroFormatado(texto: String): Boolean {
-        return texto.contains("semana", ignoreCase = true) || texto.contains("atual", ignoreCase = true)
+        val textoFormatado = texto.lowercase()
+        return textoFormatado.contains("semana") ||
+                textoFormatado.contains("atual") ||
+                textoFormatado.contains("mês") ||
+                textoFormatado.contains("hoje")
     }
 
     fun isValorBancoValido(valor: Float): Boolean {

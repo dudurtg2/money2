@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.tcc.money.data.dto.Cadastro
 import com.tcc.money.databinding.ActivityCadastroEtapa1Binding
+import com.tcc.money.ui.screens.cadastros.CadastroEtapa2Activity
+import com.tcc.money.ui.screens.login.LoginActivity
 import com.tcc.money.utils.validator.CadastroEtapa1Validator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +38,8 @@ class CadastroEtapa1Activity : AppCompatActivity() {
         }
 
         binding.btnVoltar.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
@@ -46,24 +50,7 @@ class CadastroEtapa1Activity : AppCompatActivity() {
         val cpf = binding.etCpf.text.toString().trim()
         val dataNascimento = binding.etDataNascimento.text.toString().trim()
 
-        return when {
-            !CadastroEtapa1Validator.isNomeValido(nome) -> {
-                Toast.makeText(this, "Preencha o campo Nome", Toast.LENGTH_SHORT).show()
-                false
-            }
-            !CadastroEtapa1Validator.isSobrenomeValido(sobrenome) -> {
-                Toast.makeText(this, "Preencha o campo Sobrenome", Toast.LENGTH_SHORT).show()
-                false
-            }
-            !CadastroEtapa1Validator.isCpfValido(cpf) -> {
-                Toast.makeText(this, "CPF deve conter 11 dígitos", Toast.LENGTH_SHORT).show()
-                false
-            }
-            !CadastroEtapa1Validator.isDataNascimentoValida(dataNascimento) -> {
-                Toast.makeText(this, "Preencha a Data de Nascimento", Toast.LENGTH_SHORT).show()
-                false
-            }
-            else -> true
-        }
+        return CadastroEtapa1Validator.validarTodos(nome, sobrenome, cpf, dataNascimento)
     }
 }
+
