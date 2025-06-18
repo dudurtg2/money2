@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- TOPO AZUL -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_top_bar"
+            android:backgroundTint="@color/primary"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/arrow_back_light"
+                    android:contentDescription="Voltar" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Lançamento"
+                    android:textColor="@color/secundary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Botões editar e tipo -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/main_text"
+                    android:id="@+id/btnEditarValor"
+                    android:paddingHorizontal="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_button_selected"
+                    android:text="Editar Valor"
+                    android:textColor="@color/primary" />
+
+                <Button
+                    style="@style/main_text"
+                    android:id="@+id/btnTipoValor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_button_unselected"
+                    android:text="Despesa"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Valor -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    style="@style/sub_titles_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R$"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    style="@style/main_values"
+                    android:id="@+id/tvValorDigitado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="00,00"
+                    android:textColor="@color/white"
+                    android:textSize="80sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- DETALHAR DEPOIS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <Button
+                style="@style/sub_titles"
+                android:id="@+id/btnDetalharDepois"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="30dp"
+                android:text="Detalhar depois"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_unselected"
+                android:textColor="@color/secundary"/>
+
+            <Button
+                style="@style/sub_titles"
+                android:id="@+id/btnHoraNotificacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1h"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_button_unselected"
+                android:textColor="@color/secundary"/>
+        </LinearLayout>
+
+        <!-- ORIGEM -->
+        <TextView
+            style="@style/sub_titles_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Origem"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/layoutOrigens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+        <!-- CATEGORIA -->
+        <TextView
+            style="@style/sub_titles_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categoria"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/layoutCategorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+        <!-- SUB-CATEGORIA -->
+        <TextView
+            style="@style/sub_titles_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sub-Categoria"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/layoutSubcategorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+        <!-- DESCRIÇÃO -->
+        <TextView
+            style="@style/sub_titles_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"/>
+
+        <EditText
+            android:id="@+id/edtDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ex: Compra no mercado"
+            android:maxLength="150"
+            android:layout_margin="16dp"/>
+
+        <!-- OPÇÕES RECORRENTE / PARCELADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnRecorrente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:text="Valor recorrente"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_button_selected"
+                android:textColor="@color/primary"/>
+
+            <Button
+                android:id="@+id/btnParcelado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:text="Valor parcelado"
+                android:background="@drawable/bg_button_selected"
+                android:textColor="@color/primary"/>
+        </LinearLayout>
+
+        <!-- LAYOUT CONDICIONAL -->
+        <LinearLayout
+            android:id="@+id/layoutExtra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"/>
+
+        <!-- BOTÃO LANÇAR -->
+        <Button
+            android:id="@+id/btnLancar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=">>> Lançar"
+            android:layout_margin="16dp"
+            android:background="@color/primary"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+    </LinearLayout>
+</ScrollView>
