@@ -577,6 +577,7 @@
 
                     <TextView
                         style="@style/sub_main_text"
+                        android:id="@+id/dashboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dashboard"
