@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Topo: Seta e Título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/arrow_back_light"
+                android:backgroundTint="@color/primary"
+                android:contentDescription="Voltar" />
+
+            <TextView
+                style="@style/titles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="Metas"
+                android:textColor="@color/primary"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <!-- Meta fixada -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_navbar"
+            android:backgroundTint="@color/primary"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:layout_gravity="center"
+            android:elevation="8dp"
+            android:clipToPadding="false"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:background="@drawable/buttons"
+                android:backgroundTint="@color/secundary"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    style="@style/sub_main_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meta Fixada"
+                    android:textColor="@color/primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imgMetaPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/image_bg_pattern_profile"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    style="@style/sub_titles"
+                    android:id="@+id/txtNomeMeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Nome da Meta"
+                    android:textColor="@android:color/white">
+
+                <TextView
+                    style="@style/main_text"
+                    android:id="@+id/txtValorAtual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R$000,00"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    style="@style/sub_main_text"
+                    android:id="@+id/txtValorTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="de R$000,00"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+
+
+            <ProgressBar
+                android:id="@+id/progressMetaPrincipal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="15dp"
+                android:progress="30"
+                android:progressTint="@color/white"
+                android:backgroundTint="@android:color/darker_gray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="30%"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"/>
+
+
+        </LinearLayout>
+
+        <!-- Outras metas -->
+        <LinearLayout
+            android:id="@+id/last_transition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/sub_titles_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:text="Outras Metas"
+                android:textColor="@color/primary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/primary"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Card de meta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_navbar"
+                    android:backgroundTint="@color/primary"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/sofa_icon"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        style="@style/main_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sofá novo"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/sub_titles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="R$000,00"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        style="@style/sub_main_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="de R$000,00"
+                        android:textColor="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressOutraMeta"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:progress="0"
+                android:progressTint="@color/primary"
+                android:backgroundTint="@android:color/darker_gray" />
+        </LinearLayout>
+
+        <!-- Botão nova meta -->
+        <Button
+            style="@style/main_text"
+            android:id="@+id/btnNovaMeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nova meta"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            android:background="@drawable/buttons"
+            android:backgroundTint="@color/secundary"
+            android:layout_marginTop="24dp"/>
+    </LinearLayout>
+</ScrollView>
