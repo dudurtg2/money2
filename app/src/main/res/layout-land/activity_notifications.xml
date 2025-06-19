@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Top Bar -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:background="@drawable/bg_top_bar">
+
+            <!-- Botão de voltar -->
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/primary"
+                android:contentDescription="Voltar"
+                android:padding="6dp"
+                android:src="@drawable/back_icon_blue_1" />
+
+            <!-- Título centralizado -->
+            <TextView
+                android:id="@+id/txtTitulo"
+                style="@style/titles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Notificações"
+                android:textColor="@color/primary" />
+
+            <!-- View invisível pra equilibrar -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/cloud1"
+        android:layout_width="173dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:contentDescription="Nuvem azul"
+        android:src="@drawable/cloud_noti_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <ImageView
+        android:id="@+id/cloud2"
+        android:layout_width="188dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="44dp"
+        android:contentDescription="Nuvem azul"
+        android:src="@drawable/cloud_noti_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <TextView
+        android:id="@+id/txtNenhumaAtualizacao"
+        style="@style/main_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhuma \n atualização :("
+        android:textAlignment="center"
+        android:textColor="#C0C0C0"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="227dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

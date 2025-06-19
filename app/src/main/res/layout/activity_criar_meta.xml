@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Topo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/arrow_back_light"
+                android:backgroundTint="@color/primary"
+                android:contentDescription="Voltar" />
+
+            <TextView
+                style="@style/titles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="Nova Meta"
+                android:textColor="@color/primary"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <!-- Card da imagem -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_navbar"
+            android:backgroundTint="@color/secundary"
+            android:clipToOutline="true"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imgMeta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagem da meta"/>
+
+            <ImageView
+                android:id="@+id/btnSelecionarImagem"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:background="@drawable/camera_icon"
+                android:backgroundTint="@color/primary"
+                android:contentDescription="Selecionar imagem" />
+
+            <Button
+                style="@style/main_text"
+                android:id="@+id/btnSelecionarIcone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ícone"
+                android:textAllCaps="false"
+                android:textColor="@color/secundary"
+                android:layout_margin="8dp"
+                android:textSize="12sp"
+                android:background="@drawable/buttons"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+        </RelativeLayout>
+
+        <!-- Nome da meta -->
+        <EditText
+            style="@style/main_text"
+            android:id="@+id/editNomeMeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome da meta"
+            android:layout_marginTop="20dp"
+            android:maxLines="1"
+            android:inputType="textCapWords" />
+
+        <!-- Valor da meta e data -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                style="@style/main_text"
+                android:textColor="@color/primary"
+                android:id="@+id/editValorMeta"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="R$000,00"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                style="@style/main_text"
+                android:textColor="@color/primary"
+                android:id="@+id/editDataMeta"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:hint="Data limite"
+                android:inputType="date" />
+        </LinearLayout>
+
+        <!-- Descrição -->
+        <EditText
+            style="@style/main_text"
+            android:id="@+id/editDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descrição"
+            android:inputType="textCapSentences"
+            android:maxLength="150"
+            android:minLines="3"
+            android:layout_marginTop="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+            <!-- Botão Fixar Meta -->
+            <ToggleButton
+                style="@style/main_text"
+                android:id="@+id/toggleFixarMeta"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttons"
+                android:backgroundTint="@color/secundary"
+                android:textColor="@color/primary"
+                android:textAllCaps="false"
+                android:textOff="Fixar meta"
+                android:textOn="✔ Meta fixada"
+                android:layout_marginRight="20dp"/>
+
+            <!-- Botão Adicionar -->
+            <Button
+                style="@style/main_text"
+                android:id="@+id/btnAdicionarMeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttons"
+                android:text="Adicionar"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

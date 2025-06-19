@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Topo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:background="@color/primary">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/arrow_back_light"
+                android:backgroundTint="@color/secundary"
+                android:contentDescription="Voltar" />
+
+            <TextView
+                style="@style/titles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="Metas"
+                android:textColor="@color/secundary" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <!-- Card com imagem -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_top_bar"
+            android:backgroundTint="@color/primary"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_navbar"
+                android:backgroundTint="@color/secundary"
+                android:elevation="4dp"
+                android:clipToOutline="true">
+
+                <ImageView
+                    android:id="@+id/imgMeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Imagem da meta" />
+
+                <!-- Tag Meta Fixada -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:background="@drawable/buttons"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        style="@style/sub_main_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Meta Fixada"
+                        android:textColor="@color/secundary" />
+                </LinearLayout>
+
+                <!-- Ícone da meta -->
+                <ImageView
+                    android:id="@+id/iconMeta"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/camera_icon"
+                    android:contentDescription="Ícone da meta"
+                    app:tint="@color/primary" />
+            </RelativeLayout>
+
+            <!-- Nome e valores -->
+            <TextView
+                android:id="@+id/txtNomeMeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primeiro carro"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/secundary"/>
+
+            <TextView
+                android:id="@+id/txtValorAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$000,00"
+                android:textColor="@color/secundary"/>
+
+            <TextView
+                android:id="@+id/txtValorTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="de R$000,00"
+                android:textColor="@color/secundary"/>
+
+            <ProgressBar
+                android:id="@+id/progressoMeta"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:progress="30"
+                android:progressTint="@color/secundary"
+                android:backgroundTint="@color/terciary" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Data limite -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data limite"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/txtDataLimite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15/05/2026"
+                android:textColor="@color/primary"
+                android:textSize="16sp" />
+
+            <!-- Descrição -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/txtDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Juntando dinheiro pra comprar meu chevettinho :)"
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Botões -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    style="@style/main_text"
+                    android:id="@+id/btnTransferir"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/buttons"
+                    android:text="Transferir"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="10dp"/>
+
+                <Button
+                    style="@style/main_text"
+                    android:id="@+id/btnEditar"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/buttons"
+                    android:backgroundTint="@color/secundary"
+                    android:text="Editar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
