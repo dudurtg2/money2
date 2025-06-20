@@ -1,3 +1,18 @@
+package com.tcc.money.ui.screens.editar_meta
+
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.tcc.money.R
+import com.tcc.money.data.dto.MetasDTO
+import com.tcc.money.utils.validator.MetasValidator
+import com.tcc.money.ui.screens.detalhe_meta.DetalheMetaActivity
+import com.tcc.money.ui.screens.metas.MetasActivity
+
 class EditarMetaActivity : AppCompatActivity() {
 
     private lateinit var imgMeta: ImageView
@@ -9,15 +24,19 @@ class EditarMetaActivity : AppCompatActivity() {
     private lateinit var btnSalvar: Button
     private lateinit var btnExcluir: Button
     private lateinit var btnSelecionarImagem: ImageView
+    private lateinit var btnBack: ImageButton
 
     private var imagemSelecionadaUri: Uri? = null
     private val REQUEST_IMAGE_PICK = 1010
+
+    private lateinit var metaRecebida: MetasDTO
+    private var valorAtual: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_meta)
 
-        // Referências
+        // Referências dos IDs
         imgMeta = findViewById(R.id.imgMeta)
         editNomeMeta = findViewById(R.id.editNomeMeta)
         editValorMeta = findViewById(R.id.editValorMeta)
@@ -27,67 +46,87 @@ class EditarMetaActivity : AppCompatActivity() {
         btnSalvar = findViewById(R.id.btnSalvarMeta)
         btnExcluir = findViewById(R.id.btnExcluirMeta)
         btnSelecionarImagem = findViewById(R.id.btnSelecionarImagem)
+        btnBack = findViewById(R.id.btnBack)
 
-        // Voltar
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+        // Recebe dados da tela anterior
+        metaRecebida = intent.getSerializableExtra("meta") as MetasDTO
+        valorAtual = intent.getDoubleExtra("valorAtual", 0.0)
+
+        preencherDados()
+
+        // Botão Voltar
+        btnBack.setOnClickListener {
             finish()
         }
 
-        // Recebe os dados via intent
-        val nomeMeta = intent.getStringExtra("nomeMeta") ?: ""
-        val valorAtual = intent.getDoubleExtra("valorAtual", 0.0)
-        val valorTotal = intent.getDoubleExtra("valorTotal", 0.0)
-        val dataLimite = intent.getStringExtra("dataLimite") ?: ""
-        val descricao = intent.getStringExtra("descricao") ?: ""
-        val imagemUri = intent.getStringExtra("imagemUri")
-        val isFixada = intent.getBooleanExtra("isFixada", false)
-
-        // Preenche os campos
-        editNomeMeta.setText(nomeMeta)
-        editValorMeta.setText(valorTotal.toString())
-        editDataMeta.setText(dataLimite)
-        editDescricao.setText(descricao)
-        toggleFixarMeta.isChecked = isFixada
-
-        // Carrega imagem se tiver URI
-        imagemUri?.let {
-            val uri = Uri.parse(it)
-            imagemSelecionadaUri = uri
-            imgMeta.setImageURI(uri)
-        }
-
-        // Trocar imagem
+        // Selecionar imagem
         btnSelecionarImagem.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_IMAGE_PICK)
         }
 
-        // Salvar alterações
+        // Botão Salvar
         btnSalvar.setOnClickListener {
             val nome = editNomeMeta.text.toString()
             val valor = editValorMeta.text.toString().toDoubleOrNull() ?: 0.0
             val data = editDataMeta.text.toString()
-            val descricaoTxt = editDescricao.text.toString()
-            val fixar = toggleFixarMeta.isChecked
+            val descricao = editDescricao.text.toString()
+            val fixada = toggleFixarMeta.isChecked
 
-            // Aqui você salva no banco local ou Firebase
-            Toast.makeText(this, "Meta salva com sucesso!", Toast.LENGTH_SHORT).show()
-            finish()
+            if (MetasValidator.validarTodos(nome, valor, data, descricao)) {
+                val metaAtualizada = MetasDTO(
+                    nome = nome,
+                    valor = valor,
+                    data = data,
+                    descricao = descricao,
+                    imagemUri = imagemSelecionadaUri,
+                    fixada = fixada
+                )
+
+                val intent = Intent(this, DetalheMetaActivity::class.java)
+                intent.putExtra("meta", metaAtualizada)
+                intent.putExtra("valorAtual", valorAtual)
+                startActivity(intent)
+
+                Toast.makeText(this, "Meta atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                finish()
+
+            } else {
+                if (!MetasValidator.validarNome(nome)) editNomeMeta.error = "Informe o nome"
+                if (!MetasValidator.validarValor(valor)) editValorMeta.error = "Valor deve ser maior que 0"
+                if (!MetasValidator.validarData(data)) editDataMeta.error = "Informe a data"
+                if (!MetasValidator.validarDescricao(descricao)) editDescricao.error = "Informe a descrição"
+                Toast.makeText(this, "Verifique os campos", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        // Excluir meta
+        // Botão Excluir
         btnExcluir.setOnClickListener {
-            // Aqui você chama lógica de exclusão (confirmação opcional)
+            val intent = Intent(this, MetasActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Meta excluída com sucesso!", Toast.LENGTH_SHORT).show()
             finish()
         }
     }
 
+    private fun preencherDados() {
+        editNomeMeta.setText(metaRecebida.nome)
+        editValorMeta.setText(metaRecebida.valor.toString())
+        editDataMeta.setText(metaRecebida.data)
+        editDescricao.setText(metaRecebida.descricao)
+        toggleFixarMeta.isChecked = metaRecebida.fixada
+
+        metaRecebida.imagemUri?.let {
+            imagemSelecionadaUri = it
+            imgMeta.setImageURI(it)
+        } ?: imgMeta.setImageResource(R.drawable.image_placeholder)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
-            imagemSelecionadaUri = data.data
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+            imagemSelecionadaUri = data?.data
             imgMeta.setImageURI(imagemSelecionadaUri)
         }
     }

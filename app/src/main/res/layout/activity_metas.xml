@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Topo: Seta e Título -->
+        <!-- Topo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -84,7 +84,7 @@
 
                 <TextView
                     style="@style/sub_titles"
-                    android:id="@+id/txtNomeMeta"
+                    android:id="@+id/txtNomeMetaPrincipal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -93,7 +93,7 @@
 
                 <TextView
                     style="@style/main_text"
-                    android:id="@+id/txtValorAtual"
+                    android:id="@+id/txtValorAtualPrincipal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R$000,00"
@@ -101,15 +101,13 @@
 
                 <TextView
                     style="@style/sub_main_text"
-                    android:id="@+id/txtValorTotal"
+                    android:id="@+id/txtValorTotalPrincipal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="de R$000,00"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
-
-
 
             <ProgressBar
                 android:id="@+id/progressMetaPrincipal"
@@ -120,6 +118,7 @@
                 android:progress="30"
                 android:progressTint="@color/white"
                 android:backgroundTint="@android:color/darker_gray" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,7 +128,6 @@
                 android:gravity="end"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="10dp"/>
-
 
         </LinearLayout>
 
@@ -165,11 +163,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/imgMeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp">
+                android:padding="12dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -181,27 +180,24 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/sofa_icon"
-                        android:layout_gravity="center_vertical" />
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/sofa_icon" />
                 </LinearLayout>
-
-
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp">
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/main_text"
+                        android:id="@+id/txtNomeMeta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sofá novo"
                         android:textColor="@color/black" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -212,6 +208,7 @@
 
                     <TextView
                         style="@style/sub_titles"
+                        android:id="@+id/txtValorAtual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -220,14 +217,12 @@
 
                     <TextView
                         style="@style/sub_main_text"
+                        android:id="@+id/txtValorTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="de R$000,00"
                         android:textColor="@android:color/darker_gray" />
-
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <ProgressBar

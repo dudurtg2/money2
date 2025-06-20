@@ -1,54 +1,96 @@
+package com.tcc.money.ui.screens.detalhe_meta
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.tcc.money.R
+import com.tcc.money.data.dto.MetasDTO
+import com.tcc.money.ui.screens.editar_meta.EditarMetaActivity
+
+
 class DetalheMetaActivity : AppCompatActivity() {
 
-    // Simulando os dados da meta (depois vão vir do banco ou Firebase)
-    private val nomeMeta = "Primeiro carro"
-    private val valorAtual = 300.0
-    private val valorTotal = 1000.0
-    private val dataLimite = "15/05/2026"
-    private val descricao = "Juntando dinheiro pra comprar meu chevettinho :)"
-    private val imagemUri = "content://com.example.app/imagem_meta_1" // Simulando uma URI
-    private val iconeResId = R.drawable.ic_car
-    private val isFixada = true
+    private lateinit var btnBack: ImageButton
+    private lateinit var btnTransferir: Button
+    private lateinit var btnEditar: Button
+
+    private lateinit var imgMeta: ImageView
+    private lateinit var txtNomeMeta: TextView
+    private lateinit var txtValorAtual: TextView
+    private lateinit var txtValorTotal: TextView
+    private lateinit var txtDataLimite: TextView
+    private lateinit var txtDescricao: TextView
+    private lateinit var progressoMeta: ProgressBar
+
+    private var valorAtual: Double = 0.0
+    private lateinit var metaRecebida: MetasDTO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_meta)
 
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        val btnTransferir = findViewById<Button>(R.id.btnTransferir)
-        val btnEditar = findViewById<Button>(R.id.btnEditar)
-        val progresso = findViewById<ProgressBar>(R.id.progressoMeta)
-        val txtFixada = findViewById<TextView>(R.id.metaFixadaTag)
+        // IDs
+        btnBack = findViewById(R.id.btnBack)
+        btnTransferir = findViewById(R.id.btnTransferir)
+        btnEditar = findViewById(R.id.btnEditar)
 
-        // Calcula e aplica o progresso
-        val progressoCalculado = (valorAtual / valorTotal * 100).toInt()
-        progresso.progress = progressoCalculado
+        imgMeta = findViewById(R.id.imgMeta)
+        txtNomeMeta = findViewById(R.id.txtNomeMeta)
+        txtValorAtual = findViewById(R.id.txtValorAtual)
+        txtValorTotal = findViewById(R.id.txtValorTotal)
+        txtDataLimite = findViewById(R.id.txtDataLimite)
+        txtDescricao = findViewById(R.id.txtDescricao)
+        progressoMeta = findViewById(R.id.progressoMeta)
 
-        // Exibe a tag "Meta fixada" se for o caso
-        txtFixada.visibility = if (isFixada) View.VISIBLE else View.GONE
+        // Recebe a meta vinda da tela anterior
+        metaRecebida = intent.getSerializableExtra("meta") as MetasDTO
+        valorAtual = intent.getDoubleExtra("valorAtual", 0.0)
 
-        // Ações
-        btnBack.setOnClickListener { finish() }
+        // Preenche os dados na tela
+        preencherDados()
 
-        btnTransferir.setOnClickListener {
-            val intent = Intent(this, TransferenciaActivity::class.java)
-            intent.putExtra("nomeMeta", nomeMeta)
+        // Botão de voltar
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        // Botão Editar → leva pra tela EditarMetaActivity
+        btnEditar.setOnClickListener {
+            val intent = Intent(this, EditarMetaActivity::class.java)
+            intent.putExtra("meta", metaRecebida)
             intent.putExtra("valorAtual", valorAtual)
-            intent.putExtra("valorTotal", valorTotal)
             startActivity(intent)
         }
 
-        btnEditar.setOnClickListener {
-            val intent = Intent(this, EditarMetaActivity::class.java)
-            intent.putExtra("nomeMeta", nomeMeta)
-            intent.putExtra("valorAtual", valorAtual)
-            intent.putExtra("valorTotal", valorTotal)
-            intent.putExtra("dataLimite", dataLimite)
-            intent.putExtra("descricao", descricao)
-            intent.putExtra("imagemUri", imagemUri)
-            intent.putExtra("iconeResId", iconeResId)
-            intent.putExtra("isFixada", isFixada)
-            startActivity(intent)
+        // Botão Transferir (a ser implementado futuramente)
+        btnTransferir.setOnClickListener {
+            Toast.makeText(this, "Funcionalidade de transferência em desenvolvimento!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun preencherDados() {
+        txtNomeMeta.text = metaRecebida.nome
+        txtValorAtual.text = "R$ ${String.format("%.2f", valorAtual)}"
+        txtValorTotal.text = "de R$ ${String.format("%.2f", metaRecebida.valor)}"
+        txtDataLimite.text = metaRecebida.data
+        txtDescricao.text = metaRecebida.descricao
+
+        // Progresso
+        val progresso = calcularProgresso(valorAtual, metaRecebida.valor)
+        progressoMeta.progress = progresso
+
+        // Imagem
+        metaRecebida.imagemUri?.let {
+            imgMeta.setImageURI(it)
+        } ?: imgMeta.setImageResource(R.drawable.image_placeholder)
+    }
+
+    private fun calcularProgresso(atual: Double, total: Double): Int {
+        return if (total > 0) {
+            ((atual / total) * 100).toInt().coerceIn(0, 100)
+        } else {
+            0
         }
     }
 }
