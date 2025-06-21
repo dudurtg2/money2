@@ -10,40 +10,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.tcc.money.R
 import com.tcc.money.data.dto.LaunchDTO
-import com.tcc.money.ui.screens.launch.LancamentoDespesaActivity
-import com.tcc.money.ui.screens.launch.LancamentoDetalhadoActivity
+import com.tcc.money.databinding.ActivityLaunchBinding
+import com.tcc.money.ui.screens.launch_expense.LancamentoDespesaActivity
+import com.tcc.money.ui.screens.launch_revenue.LancamentoDetalhadoActivity
 import com.tcc.money.utils.validator.LaunchValidator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LaunchActivity : AppCompatActivity() {
-
-    private lateinit var btnReceita: Button
-    private lateinit var btnDespesa: Button
-    private lateinit var btnBack: ImageView
-    private lateinit var tvValue: EditText
-
+    private lateinit var binding: ActivityLaunchBinding
     private var tipoSelecionado: String = "Receita"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
 
-        bindViews()
         setupListeners()
     }
 
-    private fun bindViews() {
-        btnReceita = findViewById(R.id.btnReceita)
-        btnDespesa = findViewById(R.id.btnDespesa)
-        btnBack = findViewById(R.id.btnBack)
-        tvValue = findViewById(R.id.tvValue)
-    }
 
     private fun setupListeners() {
-        btnReceita.setOnClickListener {
+        binding.btnReceita.setOnClickListener {
             toggleButtons(isReceita = true)
-            if (LaunchValidator.validarTodos(tvValue.text.toString())) {
+            if (LaunchValidator.validarTodos(binding.tvValue.text.toString())) {
                 val dto = LaunchDTO(
-                    valor = tvValue.text.toString().trim(),
+                    valor = binding.tvValue.text.toString().trim(),
                     tipo = "Receita"
                 )
                 val intent = Intent(this, LancamentoDetalhadoActivity::class.java)
@@ -54,11 +45,11 @@ class LaunchActivity : AppCompatActivity() {
             }
         }
 
-        btnDespesa.setOnClickListener {
+        binding.btnDespesa.setOnClickListener {
             toggleButtons(isReceita = false)
-            if (LaunchValidator.validarTodos(tvValue.text.toString())) {
+            if (LaunchValidator.validarTodos(binding.tvValue.text.toString())) {
                 val dto = LaunchDTO(
-                    valor = tvValue.text.toString().trim(),
+                    valor = binding.tvValue.text.toString().trim(),
                     tipo = "Despesa"
                 )
                 val intent = Intent(this, LancamentoDespesaActivity::class.java)
@@ -69,7 +60,7 @@ class LaunchActivity : AppCompatActivity() {
             }
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }
@@ -80,18 +71,18 @@ class LaunchActivity : AppCompatActivity() {
 
         if (isReceita) {
             tipoSelecionado = "Receita"
-            btnReceita.setBackgroundResource(R.drawable.bg_button_selected)
-            btnReceita.setTextColor(primary)
+            binding.btnReceita.setBackgroundResource(R.drawable.bg_button_selected)
+            binding.btnReceita.setTextColor(primary)
 
-            btnDespesa.setBackgroundResource(R.drawable.bg_button_unselected)
-            btnDespesa.setTextColor(secundary)
+            binding.btnDespesa.setBackgroundResource(R.drawable.bg_button_unselected)
+            binding.btnDespesa.setTextColor(secundary)
         } else {
             tipoSelecionado = "Despesa"
-            btnDespesa.setBackgroundResource(R.drawable.bg_button_selected)
-            btnDespesa.setTextColor(primary)
+            binding.btnDespesa.setBackgroundResource(R.drawable.bg_button_selected)
+            binding.btnDespesa.setTextColor(primary)
 
-            btnReceita.setBackgroundResource(R.drawable.bg_button_unselected)
-            btnReceita.setTextColor(secundary)
+            binding.btnReceita.setBackgroundResource(R.drawable.bg_button_unselected)
+            binding.btnReceita.setTextColor(secundary)
         }
     }
 }

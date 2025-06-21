@@ -40,6 +40,9 @@ class LoginActivity : AppCompatActivity() {
         binding.tvCriarConta.setOnClickListener {
             startActivity(Intent(this, CadastroEtapa1Activity::class.java))
         }
+        binding.mainCardTest.setOnClickListener {
+            startActivity(Intent(this, PrincipalActivity::class.java))
+        }
 
         binding.ivTogglePassword.setOnClickListener {
             togglePassword()

@@ -1,4 +1,4 @@
-package com.tcc.money.ui.screens.launch
+package com.tcc.money.ui.screens.launch_revenue
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -12,23 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.tcc.money.R
 import com.tcc.money.data.dto.LaunchDTO
+import com.tcc.money.databinding.ActivityLancamentoDetalhadoBinding
 import com.tcc.money.utils.validator.LancamentoDetalhadoValidator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LancamentoDetalhadoActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLancamentoDetalhadoBinding
 
-    private lateinit var btnTipoValor: Button
-    private lateinit var btnEditarValor: Button
-    private lateinit var btnBack: ImageView
-    private lateinit var tvValorDigitado: TextView
-    private lateinit var btnDetalharDepois: Button
-    private lateinit var btnHoraNotificacao: Button
-    private lateinit var layoutDestinos: LinearLayout
-    private lateinit var layoutCategorias: LinearLayout
-    private lateinit var edtDescricao: EditText
-    private lateinit var btnRecorrente: Button
-    private lateinit var btnParcelado: Button
-    private lateinit var layoutExtra: LinearLayout
-    private lateinit var btnLancar: Button
 
     private var destinoSelecionado: Int? = null
     private var categoriaSelecionada: Int? = null
@@ -41,7 +32,6 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamento_detalhado)
 
-        bindViews()
         setupListeners()
 
         // Receber dados do DTO
@@ -49,64 +39,50 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         val tipo = dto?.tipo ?: "Receita"
         val valor = dto?.valor ?: "00,00"
 
-        btnTipoValor.text = tipo
-        tvValorDigitado.text = "R$ $valor"
+        binding.btnTipoValor.text = tipo
+        binding.tvValorDigitado.text = "R$ $valor"
         valorTotal = valor.replace(",", ".").toDoubleOrNull() ?: 0.0
 
         gerarDestinosMock()
         gerarCategoriasMock()
     }
 
-    private fun bindViews() {
-        btnTipoValor = findViewById(R.id.btnTipoValor)
-        btnEditarValor = findViewById(R.id.btnEditarValor)
-        btnBack = findViewById(R.id.btnBack)
-        tvValorDigitado = findViewById(R.id.tvValorDigitado)
-        btnDetalharDepois = findViewById(R.id.btnDetalharDepois)
-        btnHoraNotificacao = findViewById(R.id.btnHoraNotificacao)
-        layoutDestinos = findViewById(R.id.layoutDestinos)
-        layoutCategorias = findViewById(R.id.layoutCategorias)
-        edtDescricao = findViewById(R.id.edtDescricao)
-        btnRecorrente = findViewById(R.id.btnRecorrente)
-        btnParcelado = findViewById(R.id.btnParcelado)
-        layoutExtra = findViewById(R.id.layoutExtra)
-        btnLancar = findViewById(R.id.btnLancar)
-    }
+
 
     private fun setupListeners() {
-        btnEditarValor.setOnClickListener {
+        binding.btnEditarValor.setOnClickListener {
             finish()
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
 
-        btnDetalharDepois.setOnClickListener {
+        binding.btnDetalharDepois.setOnClickListener {
             Toast.makeText(this, "Lançamento rápido agendado", Toast.LENGTH_SHORT).show()
-            btnLancar.visibility = View.VISIBLE
-            layoutCategorias.visibility = View.GONE
-            layoutDestinos.visibility = View.GONE
+            binding.btnLancar.visibility = View.VISIBLE
+            binding.layoutCategorias.visibility = View.GONE
+            binding.layoutDestinos.visibility = View.GONE
         }
 
-        btnHoraNotificacao.setOnClickListener {
+        binding.btnHoraNotificacao.setOnClickListener {
             Toast.makeText(this, "Notificar em 1h (placeholder)", Toast.LENGTH_SHORT).show()
         }
 
-        btnRecorrente.setOnClickListener {
+        binding.btnRecorrente.setOnClickListener {
             recorrenteSelecionado = true
             parceladoSelecionado = false
             qtdParcelas = null
             atualizarRecorrenteOuParcelado()
         }
 
-        btnParcelado.setOnClickListener {
+        binding.btnParcelado.setOnClickListener {
             recorrenteSelecionado = false
             parceladoSelecionado = true
             atualizarRecorrenteOuParcelado()
         }
 
-        btnLancar.setOnClickListener {
+        binding.btnLancar.setOnClickListener {
             if (validarCampos()) {
                 Toast.makeText(this, "Lançamento realizado com sucesso!", Toast.LENGTH_SHORT).show()
                 finish()
@@ -121,9 +97,9 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         destinos.forEachIndexed { index, nome ->
             val button = criarBotaoSelecionavel("$nome\nR$0000,00") {
                 destinoSelecionado = index
-                atualizarSelecao(layoutDestinos, index)
+                atualizarSelecao(binding.layoutDestinos, index)
             }
-            layoutDestinos.addView(button)
+            binding.layoutDestinos.addView(button)
         }
     }
 
@@ -132,10 +108,10 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         categorias.forEachIndexed { index, nome ->
             val button = criarBotaoSelecionavel(nome) {
                 categoriaSelecionada = index
-                atualizarSelecao(layoutCategorias, index)
-                btnLancar.visibility = View.VISIBLE
+                atualizarSelecao(binding.layoutCategorias, index)
+                binding.btnLancar.visibility = View.VISIBLE
             }
-            layoutCategorias.addView(button)
+            binding.layoutCategorias.addView(button)
         }
     }
 
@@ -165,25 +141,25 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
     }
 
     private fun atualizarRecorrenteOuParcelado() {
-        layoutExtra.removeAllViews()
+        binding.layoutExtra.removeAllViews()
 
         if (recorrenteSelecionado) {
-            btnRecorrente.setBackgroundResource(R.drawable.bg_button_selected)
-            btnRecorrente.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-            btnParcelado.setBackgroundResource(R.drawable.bg_button_unselected)
-            btnParcelado.setTextColor(ContextCompat.getColor(this, R.color.primary))
+            binding.btnRecorrente.setBackgroundResource(R.drawable.bg_button_selected)
+            binding.btnRecorrente.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+            binding.btnParcelado.setBackgroundResource(R.drawable.bg_button_unselected)
+            binding.btnParcelado.setTextColor(ContextCompat.getColor(this, R.color.primary))
 
             val info = TextView(this).apply {
                 text = "Mensal\nTodo dia ${java.time.LocalDate.now().dayOfMonth}"
                 setTextColor(ContextCompat.getColor(this@LancamentoDetalhadoActivity, R.color.primary))
             }
-            layoutExtra.addView(info)
+            binding.layoutExtra.addView(info)
 
         } else if (parceladoSelecionado) {
-            btnParcelado.setBackgroundResource(R.drawable.bg_button_selected)
-            btnParcelado.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-            btnRecorrente.setBackgroundResource(R.drawable.bg_button_unselected)
-            btnRecorrente.setTextColor(ContextCompat.getColor(this, R.color.primary))
+            binding.btnParcelado.setBackgroundResource(R.drawable.bg_button_selected)
+            binding.btnParcelado.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+            binding.btnRecorrente.setBackgroundResource(R.drawable.bg_button_unselected)
+            binding.btnRecorrente.setTextColor(ContextCompat.getColor(this, R.color.primary))
 
             val input = EditText(this).apply {
                 hint = "x Parcelas"
@@ -210,8 +186,8 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
-            layoutExtra.addView(input)
-            layoutExtra.addView(valorPorParcela)
+            binding.layoutExtra.addView(input)
+            binding.layoutExtra.addView(valorPorParcela)
         }
     }
 
@@ -219,7 +195,7 @@ class LancamentoDetalhadoActivity : AppCompatActivity() {
         return LancamentoDetalhadoValidator.validarTodos(
             destino = destinoSelecionado,
             categoria = categoriaSelecionada,
-            descricao = edtDescricao.text.toString(),
+            descricao = binding.edtDescricao.text.toString(),
             parcelado = parceladoSelecionado,
             qtdParcelas = qtdParcelas,
             valor = valorTotal
