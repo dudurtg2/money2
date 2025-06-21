@@ -65,9 +65,21 @@ android {
     }
 }
 
+kotlin {
+    // só se for usar toolchain Java 8 pro KAPT:
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+
+
 kapt {
     correctErrorTypes = true
+    // só se você quiser também exportar o pacote, mas não é necessário se já apontou pro JDK8
 }
+
+
 
 dependencies {
 

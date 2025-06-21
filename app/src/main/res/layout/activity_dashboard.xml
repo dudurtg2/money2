@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_top_bar"
+            android:backgroundTint="@color/primary"
+            android:padding="16dp">
+
+            <!-- TOPO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/arrow_back_light"
+                    android:contentDescription="Voltar" />
+
+                <TextView
+                    style="@style/titles"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="Dashboard"
+                    android:textColor="@color/secundary"/>
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <!-- CARD AZUL -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/primary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/sub_titles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saldo total"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        style="@style/main_values"
+                        android:id="@+id/txtSaldoTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="R$000,00"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
+
+
+                <Spinner
+                    android:id="@+id/spinnerFiltroSaldo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/filtros"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_spinner_white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_button_selected"
+                        android:backgroundTint="@color/secundary"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginRight="10dp">
+
+                        <TextView
+                            style="@style/main_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Entrou"
+                            android:textColor="@color/primary"/>
+                        <TextView
+                            style="@style/sub_titles"
+                            android:id="@+id/txtEntrou"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+R$000,00"
+                            android:textColor="@color/primary"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_button_unselected"
+                        android:backgroundTint="@color/secundary"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginLeft="10dp">
+
+                        <TextView
+                            style="@style/main_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Saiu"
+                            android:textColor="@color/secundary"/>
+                        <TextView
+                            style="@style/sub_titles"
+                            android:id="@+id/txtSaiu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-R$000,00"
+                            android:textColor="@color/secundary"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/sub_titles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Despesas por banco"
+                    android:textColor="@color/primary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/primary"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinnerFiltroDespesas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/filtros"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/bg_spinner" />
+
+            <LinearLayout
+                android:id="@+id/layoutBancos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- RESUMO DE GASTOS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/sub_titles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Resumo de gastos"
+                    android:textColor="@color/primary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/primary"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinnerFiltroGrafico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/filtros"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/bg_spinner" />
+
+            <ImageView
+                android:id="@+id/graficoGastos"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/grafico_exemplo"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
+        </LinearLayout>
+        <!-- DESPESAS POR BANCO -->
+
+</ScrollView>
