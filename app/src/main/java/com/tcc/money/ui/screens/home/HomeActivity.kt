@@ -7,14 +7,17 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tcc.money.R
 import com.tcc.money.data.applications.CheckPremiumAccountUseCase
 import com.tcc.money.data.applications.find.FindCoinsUseCase
 import com.tcc.money.data.applications.LoginUseCase
 import com.tcc.money.data.applications.save.SaveCoinsUseCase
 import com.tcc.money.data.applications.save.SaveMovementsUseCase
-import com.tcc.money.databinding.ActivityMainBinding
+import com.tcc.money.data.models.Banco
 import com.tcc.money.data.models.Movements
-import com.tcc.money.data.models.Users
+import com.tcc.money.databinding.ActivityMainBinding
+import com.tcc.money.ui.screens.home.adapter.BancoAdapter
 import com.tcc.money.ui.screens.login.LoginActivity
 import com.tcc.money.utils.enums.TypeCoins
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupListeners()
-
+        setupBancoRecyclerView()
         loadAllCoins()
     }
 
@@ -79,7 +82,6 @@ class HomeActivity : AppCompatActivity() {
                     val newMovement = createTestMovements(createTestCoins())
                     saveMovementsUseCase.execute(newMovement)
                 }.onSuccess { movement ->
-                    // exibe resultado na UI
                     binding.tvResult.text = "Movimento salvo:\n$movement"
                     Toast.makeText(
                         this@HomeActivity,
@@ -98,12 +100,10 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // 3) Botão para carregar todas as moedas
         binding.buttonLoadAll.setOnClickListener {
             loadAllCoins()
         }
 
-        // 4) Botão para carregar uma moeda pelo ID fixo
         binding.buttonLoadOne.setOnClickListener {
             lifecycleScope.launch {
                 runCatching {
@@ -121,7 +121,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // 5) Botão para login de teste
         binding.buttonLogin.setOnClickListener {
             lifecycleScope.launch {
                 runCatching { login() }
@@ -140,7 +139,25 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Função auxiliar para carregar todas as moedas
+    private fun setupBancoRecyclerView() {
+        lifecycleScope.launch {
+            val listaBancos = withContext(Dispatchers.IO) {
+                com.tcc.money.database.DataBase
+                    .getDatabase(this@HomeActivity)
+                    .bancoDao()
+                    .getAllBancos()
+            }
+
+            val bancoAdapter = BancoAdapter(listaBancos)
+
+            binding.rvBancos.apply {
+                adapter = bancoAdapter
+                layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+                setHasFixedSize(true)
+            }
+        }
+    }
+
     private fun loadAllCoins() {
         lifecycleScope.launch {
             runCatching { findCoinsUseCase.executeAll() }
@@ -157,7 +174,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Cria um objeto Coins fixo para teste
     private suspend fun createTestCoins() = com.tcc.money.data.models.Coins(
         name = "BTC",
         uuid = UUID.fromString("ce051108-5715-42f1-b17b-3954a2ae9721"),
@@ -165,7 +181,6 @@ class HomeActivity : AppCompatActivity() {
         symbol = "BTC"
     )
 
-    // Cria um objeto Movements fixo para teste
     private suspend fun createTestMovements(coins: com.tcc.money.data.models.Coins) = Movements(
         typeCoins = TypeCoins.CRIPTO,
         coins = coins,
@@ -175,12 +190,9 @@ class HomeActivity : AppCompatActivity() {
         value = 10.1f
     )
 
-    // Executa o login de teste e retorna um Users
     private suspend fun login() {
-
         loginUseCase.logouf()
         startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
         finish()
-
     }
 }

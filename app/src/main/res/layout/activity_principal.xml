@@ -46,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_marginStart="4dp"
-                          >
+                            tools:ignore="MissingConstraints">
 
                             <TextView
                                 style="@style/sub_titles"
@@ -231,10 +231,15 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBancos"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="12dp"
                     android:overScrollMode="never"
-                    android:scrollbars="none"/>
+                    android:scrollbars="none"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/item_banco"/>
                     -->
 
 
